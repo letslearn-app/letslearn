@@ -34,6 +34,12 @@ function llUiReducer(state = {}, action) {
     case "ui/new":
       state.mode = "new";
       return state;
+    case "ui/settings":
+      state.mode = "settings";
+      return state;
+    case "ui/norm":
+      state = {};
+      return state;
     default:
       return state;
   }

@@ -4,12 +4,14 @@ export class ll_new_note extends LitElement {
   static properties = { edit: {}, name: {} };
   static styles = css`
     #title {
-      width: 100%;
+      width: calc(100% - 1rem);
     }
-    textarea {
-      border: none;
-      width: 100%;
-      height: calc(100% - 4rem);
+    #editor {
+      width: calc(100% - 1rem);
+      height: calc(100% - 4.6rem);
+      overflow: auto;
+      color: inherit;
+      background: initial;
     }
   `;
   constructor() {
@@ -17,8 +19,10 @@ export class ll_new_note extends LitElement {
   }
   add() {
     var name = this.shadowRoot.getElementById("title").value;
-    var content = this.shadowRoot.getElementById("content").value;
-    if (name==="" || content===""){return}
+    var content = this.shadowRoot.getElementById("editor").value;
+    if (name === "" || content === "") {
+      return;
+    }
     if (this.edit && this.name != name) {
       window.store.dispatch({ type: "notes/del", name: this.name });
     }
@@ -34,9 +38,9 @@ export class ll_new_note extends LitElement {
 
     return html`<input value=${
       (this.edit && name) || ""
-    } placeholder=title id=title></br><textarea id=content>${content}</textarea><button @click=${
+    } placeholder=title id=title ></br><textarea id=editor>${content}</textarea><button @click=${
       this.add
-    }>Ok</button>`;
+    }><ll-icon name=mdiContentSave></ll-icon></button>`;
   }
 }
 customElements.define("ll-new-note", ll_new_note);

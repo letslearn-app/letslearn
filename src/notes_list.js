@@ -19,7 +19,7 @@ export class ll_notes_list extends LitElement {
   }
   search() {
     var res = [];
-    var value = this.shadowRoot.getElementById("search").value;
+    var value =  this.shadowRoot.getElementById("search").value;
     var state = window.store.getState().data;
     for (var i in state.notes) {
       if (i.indexOf(value) > -1) {
@@ -55,6 +55,7 @@ export class ll_notes_list extends LitElement {
       var content = notes[i].content;
       content = marked.parse(content);
       content = content.replace(/<[^<>]+>/g, "");
+      content = content.replace("&nbsp", "");
       if (content.length > 50) {
         content = content.slice(0, 50) + "...";
       }
@@ -62,7 +63,7 @@ export class ll_notes_list extends LitElement {
       var editFunc = Function(`this.editNote("${i}")`).bind(this);
       var delFunc = Function(`this.delNote("${i}")`).bind(this);
       notesHtml.push(
-        html`<a id=${i} @click=${viewFunc} ><h3 style="display:inline"class=title-link>${i}</h3></a> &nbsp <button @click=${editFunc}>edit</button><button @click=${delFunc}>del</button></br>${unsafeHTML(
+        html`<a id=${i} @click=${viewFunc} ><h3 style="display:inline"class=title-link>${i}</h3></a> &nbsp <button @click=${editFunc}><ll-icon name=mdiPencil></ll-icon></button><button @click=${delFunc}><ll-icon name=mdiDelete ></ll-icon></button></br>${unsafeHTML(
           content
         )}</br>`
       );
@@ -73,7 +74,7 @@ export class ll_notes_list extends LitElement {
         @input=${this.search}
       /><button @click=${() => {
         window.store.dispatch({ type: "ui/new" });
-      }}>new</button></br>${notesHtml}`;
+      }}><ll-icon name= mdiNotePlus ></ll-icon></button></br>${notesHtml}`;
   }
 }
 customElements.define("ll-notes-list", ll_notes_list);
