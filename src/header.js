@@ -2,7 +2,11 @@ import { LitElement, html, css } from "lit";
 
 export class ll_header extends LitElement {
   static properties = { role: {}, backbuttom: {} };
-  static styles=css`#buttoms{-webkit-app-region: no-drag;}`
+  static styles = css`
+    #buttoms {
+      -webkit-app-region: no-drag;
+    }
+  `;
   constructor() {
     super();
     store.subscribeUiChange(this.update.bind(this));
@@ -12,7 +16,7 @@ export class ll_header extends LitElement {
       var winButtoms = html`&nbsp`;
       if (window.isElectron) {
         winButtoms = html`<ll-icon
-          id=buttoms
+          id="buttoms"
           name="mdiClose"
           @click=${() => {
             window.close();
@@ -24,7 +28,7 @@ export class ll_header extends LitElement {
         return html`<div style="display:flex;justify-content: space-between;">
           <div></div>
           <div style="text-align:center">${uiState.name}</div>
-          <div id=buttoms style="text-align: right;">${winButtoms}</div>
+          <div id="buttoms" style="text-align: right;">${winButtoms}</div>
         </div>`;
       }
       return html`<div style="text-align:right">${winButtoms}</div>`;

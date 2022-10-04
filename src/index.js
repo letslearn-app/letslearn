@@ -56,7 +56,7 @@ export class ll_main extends LitElement {
     super();
 
     var userAgent = navigator.userAgent.toLowerCase();
-    window.isElectron = userAgent.indexOf(" electron/") > 1
+    window.isElectron = userAgent.indexOf(" electron/") > 1;
     window.store = store;
     this.loadData();
     store.subscribeDataChange(this.syncData.bind(this));

@@ -15,15 +15,22 @@ export class ll_notes_list extends LitElement {
   `;
   constructor() {
     super();
+    this.searchContent = localStorage["searchContent"] =="true";
     window.store.subscribe(this.update.bind(this));
   }
   search() {
     var res = [];
     var value = this.shadowRoot.getElementById("search").value;
+    if (value==""){this.searchRes=undefined}
     var state = window.store.getState().data;
     for (var i in state.notes) {
       if (i.indexOf(value) > -1) {
         res.push(i);
+      }
+      if (this.searchContent) {
+        if (state.notes[i].content.indexOf(value) > -1 ) {
+          res.push(i);
+        }
       }
     }
     if (!res) {

@@ -1,0 +1,9 @@
+{
+  "name": "letslearn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "electron.js",
+  "scripts": {},
+  "author": "",
+  "license": "GPL3"
+}

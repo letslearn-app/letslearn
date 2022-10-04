@@ -14,7 +14,16 @@ export class ll_settings extends LitElement {
           }}
           >Erase all the data</a
         >`,
-      searcing: html`Search content&nbsp<input type="checkbox" checked />`,
+      searcing: html`Search content&nbsp<input
+          type="checkbox"
+          id="search-content"
+          ${(localStorage["searchContent"] == "true" && 'checked=""' ) || ""}
+          @input=${() => {
+            this.setSearchContent(
+              this.shadowRoot.getElementById("search-content").checked
+            );
+          }} 
+        >`,
     };
   }
   downloadFile(href, filename) {
@@ -41,6 +50,9 @@ export class ll_settings extends LitElement {
       window.store.dispatch({ type: "state/set", state: { notes: {} } });
       window.store.dispatch({ type: "" });
     }
+  }
+  setSearchContent(searchContent) {
+    localStorage["searchContent"] = searchContent;
   }
   render() {
     if (this.role == "left") {
