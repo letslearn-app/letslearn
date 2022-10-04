@@ -19,6 +19,7 @@ export class ll_main extends LitElement {
     }
     .header {
       width: 100%;
+      -webkit-app-region: drag;
       height: var(--ll-header-height);
     }
     .footer {
@@ -54,6 +55,8 @@ export class ll_main extends LitElement {
   constructor() {
     super();
 
+    var userAgent = navigator.userAgent.toLowerCase();
+    window.isElectron = userAgent.indexOf(" electron/") > 1
     window.store = store;
     this.loadData();
     store.subscribeDataChange(this.syncData.bind(this));
@@ -106,29 +109,28 @@ export class ll_main extends LitElement {
         content = html``;
         break;
     }
-    return html`
-      <div id="content" style="display:flex">
-        <div id="left">
-          <div class="header">
-            <ll-header
-              role="left"
-              backbuttom=${!!leftContentOverride}
-            ></ll-header>
-          </div>
-          <hr />
-          <div id="content-left">
-            ${leftContentOverride || new ll_notes_list()}
-          </div>
-          <hr style="margin:0px;"/>
-          <div class="footer"><ll-header role="footer"></ll-header></div>
+    return html` <div id="content" style="display:flex">
+      <div id="left">
+        <div class="header">
+          <ll-header
+            role="left"
+            backbuttom=${!!leftContentOverride}
+          ></ll-header>
         </div>
-        <div id="right">
-          <div class="header"><ll-header role="right"></ll-header></div>
-          <hr />
+        <hr />
+        <div id="content-left">
+          ${leftContentOverride || new ll_notes_list()}
+        </div>
+        <hr style="margin:0px;" />
+        <div class="footer"><ll-header role="footer"></ll-header></div>
+      </div>
+      <div id="right">
+        <div class="header"><ll-header role="right"></ll-header></div>
+        <hr />
 
-          <div id="content-right">${content}</div>
-        </div>
-      </div>`;
+        <div id="content-right">${content}</div>
+      </div>
+    </div>`;
   }
 }
 customElements.define("ll-main", ll_main);

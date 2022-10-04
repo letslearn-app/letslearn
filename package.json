@@ -2,16 +2,19 @@
   "name": "letslearn",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "build/electron.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "startdev": "web-dev-server --node-resolve --open --watch -r src/"
+    "startdev": "rollup -c rollup.config.js  --environment dev -w --sourcemap",
+    "build_web": "rollup -c rollup.config.js --sourcemap",
+    "build_electron": "rollup -c rollup.config.js --sourcemap && cp src/electron.js build/electron.js && electron-packager . --overwrite --ignore=node_modules --ignore=README.md --ignore=rollup.config.js --ignore=src"
   },
   "author": "",
   "license": "GPL3",
   "dependencies": {
     "@mdi/js": "^7.0.96",
     "dompurify": "^2.4.0",
+    "electron": "^21.0.1",
     "highlight.js": "^11.6.0",
     "lit": "^2.3.1",
     "localforage": "^1.10.0",
@@ -30,6 +33,7 @@
     "@rollup/plugin-node-resolve": "^14.1.0",
     "@web/rollup-plugin-copy": "^0.3.0",
     "@web/rollup-plugin-html": "^1.11.0",
+    "electron-packager": "^16.0.0",
     "rollup": "^2.79.1",
     "rollup-plugin-minify-html-literals": "^1.2.6",
     "rollup-plugin-summary": "^1.4.3",

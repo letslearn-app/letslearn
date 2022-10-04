@@ -1,0 +1,19 @@
+body {
+  background: white;
+  color: black;
+  font-family: sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #2a2a2e;
+    color: #ccc;
+  }
+}
+
+.darkmode {
+  background: #2a2a2e;
+  color: #ccc;
+}
+html::-webkit-scrollbar {
+  display: none;
+}

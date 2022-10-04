@@ -11,7 +11,10 @@ export class ll_notes_view extends LitElement {
   render() {
     var note = store.getState().data.notes[this.name];
 
-    var content = DOMPurify.sanitize(marked.parse(note.content)).replace("\n","<br>");
+    var content = DOMPurify.sanitize(marked.parse(note.content)).replace(
+      "\n",
+      "<br>"
+    );
     var ele = document.createElement("div");
     ele.innerHTML = content;
     ele.querySelectorAll("pre code").forEach((el) => {

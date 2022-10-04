@@ -19,7 +19,7 @@ export class ll_notes_list extends LitElement {
   }
   search() {
     var res = [];
-    var value =  this.shadowRoot.getElementById("search").value;
+    var value = this.shadowRoot.getElementById("search").value;
     var state = window.store.getState().data;
     for (var i in state.notes) {
       if (i.indexOf(value) > -1) {
@@ -59,9 +59,10 @@ export class ll_notes_list extends LitElement {
       if (content.length > 50) {
         content = content.slice(0, 50) + "...";
       }
-      var viewFunc = Function(`this.viewNote("${i}")`).bind(this); //Very ugly but work
-      var editFunc = Function(`this.editNote("${i}")`).bind(this);
-      var delFunc = Function(`this.delNote("${i}")`).bind(this);
+      var i_safe = i.replace('"', '"');
+      var viewFunc = Function(`this.viewNote("${i_safe}")`).bind(this); //Very ugly but work
+      var editFunc = Function(`this.editNote("${i_safe}")`).bind(this);
+      var delFunc = Function(`this.delNote("${i_safe}")`).bind(this);
       notesHtml.push(
         html`<a id=${i} @click=${viewFunc} ><h3 style="display:inline"class=title-link>${i}</h3></a> &nbsp <button @click=${editFunc}><ll-icon name=mdiPencil></ll-icon></button><button @click=${delFunc}><ll-icon name=mdiDelete ></ll-icon></button></br>${unsafeHTML(
           content
