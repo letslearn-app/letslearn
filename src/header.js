@@ -3,10 +3,12 @@ import { LitElement, html, css } from "lit";
 export class ll_header extends LitElement {
   static properties = { role: {}, backbuttom: {} };
   static styles = css`
-    #buttoms {
+    .buttoms {
       -webkit-app-region: no-drag;
     }
-  `;
+    .win-buttoms{padding-top: 3px;}
+    .win-buttoms:hover{background: #ff004d}
+    `;
   constructor() {
     super();
     store.subscribeUiChange(this.update.bind(this));
@@ -16,7 +18,7 @@ export class ll_header extends LitElement {
       var winButtoms = html`&nbsp`;
       if (window.isElectron) {
         winButtoms = html`<ll-icon
-          id="buttoms"
+          class="buttoms win-buttoms"
           name="mdiClose"
           @click=${() => {
             window.close();
@@ -28,7 +30,7 @@ export class ll_header extends LitElement {
         return html`<div style="display:flex;justify-content: space-between;">
           <div></div>
           <div style="text-align:center">${uiState.name}</div>
-          <div id="buttoms" style="text-align: right;">${winButtoms}</div>
+          <div class="buttoms" style="text-align: right;">${winButtoms}</div>
         </div>`;
       }
       return html`<div style="text-align:right">${winButtoms}</div>`;
@@ -36,6 +38,7 @@ export class ll_header extends LitElement {
     if (this.role == "left") {
       return html`${(this.backbuttom == "true" &&
         html`<ll-icon
+          class="buttoms"
           name="mdiArrowLeft"
           @click=${() => {
             window.store.dispatch({ type: "ui/norm" });

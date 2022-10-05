@@ -31,7 +31,7 @@ modules:
 #        . ../flatpak-node/electron-builder-arch-args.sh
       -  npm run build_electron -- $ELECTRON_BUILDER_ARCH_ARGS  --linux --dir
       # Bundle app and dependencies
-      - cp -a build/letslearn-linux-x64/ /app/main
+      - cp -a letslearn-linux-x64/ /app/main
       # Install app wrapper
       - install -Dm755 -t /app/bin/ ../run.sh
     subdir: main

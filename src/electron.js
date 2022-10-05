@@ -9,8 +9,13 @@ function createWindow() {
     height: 600,
     autoHideMenuBar: true,
     frame: false,
+    webPreferences: {
+      //注意大小写
+      nodeIntegration: true,
+    },
   });
-
+  mainWindow.title="Letslearn"
+  mainWindow.setMinimumSize(1040, 600);
   // and load the index.html of the app.
   mainWindow.loadFile("index.html");
 }

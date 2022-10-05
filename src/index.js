@@ -19,6 +19,7 @@ export class ll_main extends LitElement {
     }
     .header {
       width: 100%;
+      -webkit-user-select: none;
       -webkit-app-region: drag;
       height: var(--ll-header-height);
     }
@@ -54,9 +55,6 @@ export class ll_main extends LitElement {
   `;
   constructor() {
     super();
-
-    var userAgent = navigator.userAgent.toLowerCase();
-    window.isElectron = userAgent.indexOf(" electron/") > 1;
     window.store = store;
     this.loadData();
     store.subscribeDataChange(this.syncData.bind(this));

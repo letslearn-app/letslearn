@@ -17,13 +17,13 @@ export class ll_settings extends LitElement {
       searcing: html`Search content&nbsp<input
           type="checkbox"
           id="search-content"
-          ${(localStorage["searchContent"] == "true" && 'checked=""' ) || ""}
+          ${(localStorage["searchContent"] == "true" && 'checked=""') || ""}
           @input=${() => {
             this.setSearchContent(
               this.shadowRoot.getElementById("search-content").checked
             );
-          }} 
-        >`,
+          }}
+        />`,
     };
   }
   downloadFile(href, filename) {
@@ -43,7 +43,7 @@ export class ll_settings extends LitElement {
     );
     var blob = new Blob([data]);
     var url = URL.createObjectURL(blob);
-    this.downloadFile(url, "leetlearnData.json");
+    this.downloadFile(url, "letslearnData.json");
   }
   eraseData() {
     if (confirm("Are you sure?")) {
