@@ -23,15 +23,16 @@
       <image type="source">https://raw.githubusercontent.com/letslearn-app/letslearn/master/docs/screenshots/Letslearn%20with%20artcles%20from%20MDN.png</image>
     </screenshot>
   </screenshots>
-  <icon type="remote" width="128" height="128">https://raw.githubusercontent.com/letslearn-app/letslearn/master/packing/Letslearn.svg</icon>
+  <releases>
+    <release version="v0.1" date="2022-10-06" type="development"/>
+  </releases>
+  <url type="homepage">https://github.com/letslearn-app</url>
+  <url type="bugtracker">https://github.com/letslearn-app/letslearn/issues</url>
   <requires>
     <control>pointing</control>
     <control>keyboard</control>
     <display_length compare="ge">medium</display_length>
   </requires>
-  <recommends>
-    <display_length compare="ge">medium</display_length>
-  </recommends>
   <supports>
     <control>touch</control>
   </supports>
