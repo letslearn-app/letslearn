@@ -41,12 +41,13 @@ modules:
       - cp packing/Letslearn.svg /app/share/icons/hicolor/128x128/apps/io.github.letslearn-app.svg
     subdir: main
     sources:
-      #- type: archive
-      #  url: https://github.com/flathub/electron-sample-app/archive/1.0.1.tar.gz
-      #  sha256: a2feb3f1cf002a2e4e8900f718cc5c54db4ad174e48bfcfbddcd588c7b716d5b
-      - type: dir
-        path: ..
-        dest: main 
+      - type: archive
+        url: https://github.com/letslearn-app/letslearn/archive/refs/tags/v0.1-beta.zip
+        sha256: b75f6e02176999b1bf10734ee071bda9077521bb0593681f74cce78da7b66879
+        dest: main
+      #- type: dir
+      #  path: ..
+      #  dest: main 
       # Wrapper to launch the app
       - type: script
         dest-filename: run.sh
