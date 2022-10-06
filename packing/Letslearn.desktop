@@ -5,6 +5,6 @@ Comment=Letslearn
 Exec=/app/bin/run.sh
 Terminal=false
 Type=Application
-Categories=Application;Network
+Categories=Application;Education
 StartupNotify=true
 Icon=io.github.letslearn_app.letslearn
