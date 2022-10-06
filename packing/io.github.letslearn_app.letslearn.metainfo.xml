@@ -18,7 +18,7 @@
       <li>Searching</li>
     </ul>
   </description>
-  <icon type="remote">https://raw.githubusercontent.com/letslearn-app/letslearn/master/packing/Letslearn.svg<icon>
+  <icon type="remote">https://raw.githubusercontent.com/letslearn-app/letslearn/master/packing/Letslearn.svg</icon>
   <screenshots>
     <screenshot type="default">
       <image type="source">https://raw.githubusercontent.com/letslearn-app/letslearn/master/docs/screenshots/Letslearn%20with%20artcles%20from%20MDN.png</image>
