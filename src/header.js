@@ -6,9 +6,13 @@ export class ll_header extends LitElement {
     .buttoms {
       -webkit-app-region: no-drag;
     }
-    .win-buttoms{padding-top: 3px;}
-    .win-buttoms:hover{background: #ff004d}
-    `;
+    .win-buttoms {
+      padding-top: 3px;
+    }
+    .win-buttoms:hover {
+      background: #ff004d;
+    }
+  `;
   constructor() {
     super();
     store.subscribeUiChange(this.update.bind(this));

@@ -14,7 +14,7 @@ function createWindow() {
       nodeIntegration: true,
     },
   });
-  mainWindow.title="Letslearn"
+  mainWindow.title = "Letslearn";
   mainWindow.setMinimumSize(1040, 600);
   // and load the index.html of the app.
   mainWindow.loadFile("index.html");

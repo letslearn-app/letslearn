@@ -14,6 +14,7 @@
     href="../node_modules/highlight.js/styles//dark.css"
     id="hightlightjs-css-dark"
   />
+<link rel="manifest" href="./menifest.json">
   <link rel="stylesheet" href="./common.css" />
   <script>
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
@@ -30,7 +31,10 @@
       window.addEventListener("click", (ev) => {
         for (i of ev.path) {
           if (i.tagName == "A") {
-            if (i.href!="" && !(i.href.startsWith("#")||i.href.startsWith("blob"))) {
+            if (
+              i.href != "" &&
+              !(i.href.startsWith("#") || i.href.startsWith("blob"))
+            ) {
               ev.preventDefault();
               console.log(i.href);
               electron.shell.openExternal(i.href);
