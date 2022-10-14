@@ -112,7 +112,7 @@ export class ll_main extends LitElement {
         <div class="header">
           <ll-header
             role="left"
-            backbuttom=${!!leftContentOverride}
+            backbuttom=${uiState.mode != undefined}
           ></ll-header>
         </div>
         <hr />

@@ -24,13 +24,18 @@ export class ll_notes_list extends LitElement {
     if (value == "") {
       this.searchRes = undefined;
     }
-    var state = window.store.getState().data;
-    for (var i in state.notes) {
+    var notes = window.store.getState().data.notes;
+    for (var i in notes) {
       if (i.indexOf(value) > -1) {
         res.push(i);
       }
       if (this.searchContent) {
-        if (state.notes[i].content.indexOf(value) > -1) {
+        if (notes[i].content.indexOf(value) > -1) {
+          res.push(i);
+        }
+      }
+      for (var n of notes[i].tags) {
+        if (n == value) {
           res.push(i);
         }
       }

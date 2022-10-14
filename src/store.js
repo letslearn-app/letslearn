@@ -4,10 +4,14 @@ function llDataReducer(state = { notes: {} }, action) {
   state["__JUST_LOADED"] = false;
   switch (action.type) {
     case "notes/add":
-      state["notes"][action.name] = {
+      var note = {
         name: action.name,
         content: action.content,
       };
+      if (action.tags instanceof Array) {
+        note.tags = action.tags;
+      }
+      state["notes"][action.name] = note;
       return state;
     case "notes/del":
       delete state["notes"][action.name];

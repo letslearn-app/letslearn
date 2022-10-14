@@ -5,25 +5,25 @@ export class ll_settings extends LitElement {
   static properties = { role: {} };
   constructor() {
     super();
-      this.settings = {
-        data: html`<a @click=${this.exportData.bind(this)}>Export data file</a
-          ><br /><a
-            style="color:red"
-            @click=${() => {
-              this.eraseData();
-            }}
-            >Erase all the data</a
-          >`,
-        searching: (() => {
-          var chkbox = document.createElement("input");
-          chkbox.type = "checkbox";
-          chkbox.checked = localStorage["searchContent"] == "true";
-          chkbox.oninput = () => {
-            this.setSearchContent(chkbox.checked);
-          };
-          return html`Search content&nbsp ${chkbox}`;
-        })(),
-      };
+    this.settings = {
+      data: html`<a @click=${this.exportData.bind(this)}>Export data file</a
+        ><br /><a
+          style="color:red"
+          @click=${() => {
+            this.eraseData();
+          }}
+          >Erase all the data</a
+        >`,
+      searching: (() => {
+        var chkbox = document.createElement("input");
+        chkbox.type = "checkbox";
+        chkbox.checked = localStorage["searchContent"] == "true";
+        chkbox.oninput = () => {
+          this.setSearchContent(chkbox.checked);
+        };
+        return html`Search content&nbsp ${chkbox}`;
+      })(),
+    };
   }
   downloadFile(href, filename) {
     const a = document.createElement("a");
