@@ -1,0 +1,16 @@
+{
+  "name": "Letslearn",
+  "short_name": "Letslearn",
+  "display": "standalone",
+  "orientation": "landscape",
+  "start_url": "/",
+  "theme_color": "black",
+  "background_color": "black",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/letslearn-app/letslearn/master/packing/Letslearn.svg",
+      "sizes": "128x128",
+      "type": "image/svg"
+    }
+  ]
+}

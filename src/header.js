@@ -40,8 +40,8 @@ export class ll_header extends LitElement {
       return html`<div style="text-align:right">${winButtoms}</div>`;
     }
     if (this.role == "left") {
-      return html`<div style="display:flex;justify-content: space-between;">${
-        (this.backbuttom == "true" &&
+      return html`<div style="display:flex;justify-content: space-between;">
+        ${(this.backbuttom == "true" &&
           html`
             <ll-icon
               class="buttoms"
@@ -51,8 +51,10 @@ export class ll_header extends LitElement {
               }}
             ></ll-icon>
           `) ||
-        html`<div></div>`
-      }<div style="text-align:center">Letslearn</div>  <div></div></div>`;
+        html`<div></div>`}
+        <div style="text-align:center">Letslearn</div>
+        <div></div>
+      </div>`;
     }
     if (this.role == "footer") {
       return html`<ll-icon

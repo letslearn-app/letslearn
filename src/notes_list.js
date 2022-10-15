@@ -1,7 +1,7 @@
 import { LitElement, html, css } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { marked } from "marked";
-
+import {ll_button,ll_textinput} from './widget.js'
 export class ll_notes_list extends LitElement {
   static properties = { searchRes: {} };
   static styles = css`
@@ -78,18 +78,24 @@ export class ll_notes_list extends LitElement {
       var editFunc = Function(`this.editNote("${i_safe}")`).bind(this);
       var delFunc = Function(`this.delNote("${i_safe}")`).bind(this);
       notesHtml.push(
-        html`<a id=${i} @click=${viewFunc} ><h3 style="display:inline"class=title-link>${i}</h3></a> &nbsp <button @click=${editFunc}><ll-icon name=mdiPencil></ll-icon></button><button @click=${delFunc}><ll-icon name=mdiDelete ></ll-icon></button></br>${unsafeHTML(
+        html`<a id=${i} @click=${viewFunc} ><h3 style="display:inline"class=title-link>${i}</h3></a> &nbsp <ll-button @click=${editFunc}><ll-icon name=mdiPencil></ll-icon></ll-button><ll-button @click=${delFunc}><ll-icon name=mdiDelete ></ll-icon></ll-button></br>${unsafeHTML(
           content
         )}</br>`
       );
     }
-    return html`<input
-        id="search"
-        placeholder="Search"
-        @input=${this.search}
-      /><button @click=${() => {
-        window.store.dispatch({ type: "ui/new" });
-      }}><ll-icon name= mdiNotePlus ></ll-icon></button></br>${notesHtml}`;
+    return html`<div style="display:flex">
+                <ll-textinput
+                  style="flex:1"
+                  id="search"
+                  placeholder="Search"
+                  @input=${this.search}
+                ></ll-textinput>
+                <ll-button  
+                  click=${() => {window.store.dispatch({ type: "ui/new" });}}
+                >
+                    <ll-icon name= mdiNotePlus ></ll-icon>
+                </ll-button>
+                </div></br>${notesHtml}`;
   }
 }
 customElements.define("ll-notes-list", ll_notes_list);
