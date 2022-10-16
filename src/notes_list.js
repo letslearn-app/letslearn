@@ -1,7 +1,7 @@
 import { LitElement, html, css } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { marked } from "marked";
-import {ll_button,ll_textinput} from './widget.js'
+import { ll_button, ll_textinput } from "./widget.js";
 export class ll_notes_list extends LitElement {
   static properties = { searchRes: {} };
   static styles = css`
@@ -91,11 +91,13 @@ export class ll_notes_list extends LitElement {
                   @input=${this.search}
                 ></ll-textinput>
                 <ll-button  
-                  click=${() => {window.store.dispatch({ type: "ui/new" });}}
+                  click=${() => {
+                    window.store.dispatch({ type: "ui/new" });
+                  }}
                 >
                     <ll-icon name= mdiNotePlus ></ll-icon>
                 </ll-button>
-                </div></br>${notesHtml}`;
+                </div>${notesHtml}`;
   }
 }
 customElements.define("ll-notes-list", ll_notes_list);

@@ -25,12 +25,16 @@ export class ll_button extends LitElement {
 }
 
 export class ll_textinput extends LitElement {
-  static properties = {value:{}};
-  static styles=css`#input{width: 100%;
-background: initial;
-color: inherit;
-border-style: solid;
-border-width: 1px;}`
+  static properties = { value: {}, placeholder: {} };
+  static styles = css`
+    #input {
+      width: 100%;
+      background: initial;
+      color: inherit;
+      border-style: solid;
+      border-width: 1px;
+    }
+  `;
   constructor() {
     super();
   }
@@ -38,11 +42,9 @@ border-width: 1px;}`
     this.value = this.shadowRoot.getElementById("input").value;
   }
   render() {
-    return html`<div style="display:flex"><input id=input value=${this.value} @input=${this.updateValue}></input></div>`;
+    return html`<div style="display:flex"><input id=input placeholder=${this.placeholder} value=${this.value} @input=${this.updateValue}></input></div>`;
   }
 }
-
-
 
 customElements.define("ll-button", ll_button);
 customElements.define("ll-textinput", ll_textinput);

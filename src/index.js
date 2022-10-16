@@ -115,7 +115,7 @@ export class ll_main extends LitElement {
             backbuttom=${uiState.mode != undefined}
           ></ll-header>
         </div>
-        <hr />
+        <hr>
         <div id="content-left">
           ${leftContentOverride || new ll_notes_list()}
         </div>

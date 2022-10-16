@@ -4,11 +4,13 @@ export class ll_new_note extends LitElement {
   static properties = { edit: {}, name: {} };
   static styles = css`
     #title {
-      width: calc(100% - 1rem);
+      width: 100%;
     }
     #editor {
-      width: calc(100% - 1rem);
-      height: calc(100% - 4.6rem);
+      width: calc(100% - 0.5rem);
+      height: 100%;
+      resize: none;
+      flex: 1;
       overflow: auto;
       color: inherit;
       background: initial;
@@ -40,9 +42,11 @@ export class ll_new_note extends LitElement {
       tags = window.store.getState().data.notes[this.name].tags.join(" ");
     }
 
-    return html`<div style="display: flex; flex-direction: column;height:100%"><input value=${
+    return html`<div style="display: flex; flex-direction: column;height:100%"><ll-textinput value=${
       (this.edit && name) || ""
-    } placeholder=title id=title ></br><textarea id=editor>${content}</textarea><div style="display:flex"><ll-textinput style="flex:1" id=tags placeholder=Tags value=${(this.edit && tags)}></ll-textinput><ll-button stype="width:2rem" @click=${
+    } placeholder=title id=title ></ll-textinput></br><textarea id=editor>${content}</textarea><div style="display:flex"><ll-textinput style="flex:1" id=tags placeholder=Tags value=${
+      this.edit && tags
+    }></ll-textinput><ll-button stype="width:2rem" @click=${
       this.add
     }><ll-icon name=mdiContentSave></ll-icon></ll-button></div>`;
   }
