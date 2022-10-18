@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<component type="desktop">
+<application>
   <!--Created with jdAppdataEdit 5.1-->
-  <id>io.github.letslearn_app.letslearn</id>
+  <id type=desktop>io.github.letslearn_app.letslearn</id>
   <name>Letslearn</name>
   <summary>A opensource note application with tidy look</summary>
   <developer_name>Calvinlin</developer_name>
@@ -40,4 +40,4 @@
   <keywords>
     <keyword>notes</keyword>
   </keywords>
-</component>
+</application>
