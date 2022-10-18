@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <application>
   <!--Created with jdAppdataEdit 5.1-->
-  <id type=desktop>io.github.letslearn_app.letslearn</id>
+  <id type="desktop">io.github.letslearn_app.letslearn</id>
   <name>Letslearn</name>
   <summary>A opensource note application with tidy look</summary>
   <developer_name>Calvinlin</developer_name>
