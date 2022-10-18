@@ -5,7 +5,7 @@
   <name>Letslearn</name>
   <summary>A opensource note application with tidy look</summary>
   <developer_name>Calvinlin</developer_name>
-  <launchable type="desktop-id">io.github.letslearn-app.desktop</launchable>
+  <launchable type="desktop-id">io.github.letslearn_app.letslearn.desktop</launchable>
   <metadata_license>GFDL-1.3</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <update_contact>calvinchaochao@outlook.com</update_contact>
