@@ -24,6 +24,11 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="v0.1.01" date="2022-10-16" type="development">
+      <description>
+        <p>Tweaked ui</p>
+      </description>
+    </release>
     <release version="v0.1" date="2022-10-06" type="development"/>
   </releases>
   <url type="homepage">https://github.com/letslearn-app</url>

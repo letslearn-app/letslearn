@@ -2,6 +2,7 @@ body {
   background: white;
   color: black;
   font-family: sans-serif;
+  margin: 0px;
 }
 @media (prefers-color-scheme: dark) {
   body {

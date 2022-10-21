@@ -1,6 +1,6 @@
 import { createStore, combineReducers } from "redux";
-
-function llDataReducer(state = { notes: {} }, action) {
+export const LL_DATA_VERISION=1;// Increace it only when data model changed
+function llDataReducer(state = { notes: {},LL_DATA_VERISION }, action) {
   state["__JUST_LOADED"] = false;
   switch (action.type) {
     case "notes/add":

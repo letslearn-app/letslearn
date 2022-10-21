@@ -14,6 +14,7 @@ export class ll_button extends LitElement {
       color: inherit;
       border-style: solid;
       border-width: 1px;
+      outline: none;
     }
   `;
   constructor() {
@@ -33,6 +34,7 @@ export class ll_textinput extends LitElement {
       color: inherit;
       border-style: solid;
       border-width: 1px;
+      outline: none;
     }
   `;
   constructor() {
@@ -42,7 +44,7 @@ export class ll_textinput extends LitElement {
     this.value = this.shadowRoot.getElementById("input").value;
   }
   render() {
-    return html`<div style="display:flex"><input id=input placeholder=${this.placeholder} value=${this.value} @input=${this.updateValue}></input></div>`;
+    return html`<div style="display:flex;height:100%;"><input id=input placeholder=${this.placeholder} value=${this.value} @input=${this.updateValue}></input></div>`;
   }
 }
 

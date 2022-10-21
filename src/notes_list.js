@@ -6,12 +6,22 @@ export class ll_notes_list extends LitElement {
   static properties = { searchRes: {} };
   static styles = css`
     a {
-       color: inherit;
-      text-decoration:none;
+      color: inherit;
+      text-decoration: none;
     }
-    h3{margin-bottom:1px}
+    h3 {
+      margin-bottom: 1px;
+    }
     .title-link {
-       text-decoration:underline;
+      text-decoration: underline;
+    }
+    .note-item {
+      margin: 4px;
+      border-radius: 6px;
+      border: solid;
+      border-width: 1px;
+      padding: 2px;
+    }
   `;
   constructor() {
     super();
@@ -78,26 +88,37 @@ export class ll_notes_list extends LitElement {
       var editFunc = Function(`this.editNote("${i_safe}")`).bind(this);
       var delFunc = Function(`this.delNote("${i_safe}")`).bind(this);
       notesHtml.push(
-        html`<a id=${i} @click=${viewFunc} ><h3 style="display:inline"class=title-link>${i}</h3></a> &nbsp <ll-button @click=${editFunc}><ll-icon name=mdiPencil></ll-icon></ll-button><ll-button @click=${delFunc}><ll-icon name=mdiDelete ></ll-icon></ll-button></br>${unsafeHTML(
-          content
-        )}</br>`
+        html`<div class=note-item>
+            <a id=${i} @click=${viewFunc} >
+              <h3 style="display:inline"class=title-link>${i}</h3>
+            </a> 
+            &nbsp 
+            <ll-button @click=${editFunc}>
+              <ll-icon name=mdiPencil></ll-icon>
+            </ll-button>
+            <ll-button @click=${delFunc}>
+              <ll-icon name=mdiDelete ></ll-icon>
+            </ll-button>
+            </br>
+            <div class=content-preview>${unsafeHTML(content)}</div>
+            </div>`
       );
     }
-    return html`<div style="display:flex">
-                <ll-textinput
-                  style="flex:1"
-                  id="search"
-                  placeholder="Search"
-                  @input=${this.search}
-                ></ll-textinput>
-                <ll-button  
-                  click=${() => {
-                    window.store.dispatch({ type: "ui/new" });
-                  }}
-                >
-                    <ll-icon name= mdiNotePlus ></ll-icon>
-                </ll-button>
-                </div>${notesHtml}`;
+    return html`<div>
+        <ll-textinput
+          id="search"
+          placeholder="Search"
+          @input=${this.search}
+        ></ll-textinput>
+        <ll-button
+          @click=${() => {
+            window.store.dispatch({ type: "ui/new" });
+          }}
+        >
+          <ll-icon name="mdiNotePlus"></ll-icon>
+        </ll-button>
+      </div>
+      ${notesHtml}`;
   }
 }
 customElements.define("ll-notes-list", ll_notes_list);

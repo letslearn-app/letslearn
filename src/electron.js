@@ -10,7 +10,7 @@ function createWindow() {
     autoHideMenuBar: true,
     frame: false,
     contextIsolation: true,
-    transparent: true,
+    transparent: false,
     webPreferences: {
       //注意大小写
       nodeIntegration: true,

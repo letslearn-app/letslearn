@@ -13,7 +13,7 @@ export class ll_main extends LitElement {
   static styles = css`
     #content {
       --ll-left-size: 20%;
-      --ll-header-height: 2vh;
+      --ll-header-height: 10px;
       --ll-footer-height: 4vh;
       overflow: hidden;
     }
@@ -22,6 +22,8 @@ export class ll_main extends LitElement {
       -webkit-user-select: none;
       -webkit-app-region: drag;
       height: var(--ll-header-height);
+      padding-top: 8px;
+      padding-bottom: 10px;
     }
     .footer {
       margin-top: 6px
@@ -37,6 +39,10 @@ export class ll_main extends LitElement {
       border-right-style: solid;
       border-width: 1px;
     }
+    @media only screen and (max-width: 600px) {
+    #left:hover{
+      width: 100%
+    }}
     #right {
       height: 100vh;
       margin-left: 1px;
@@ -50,6 +56,7 @@ export class ll_main extends LitElement {
       flex: 1;
       overflow: auto;
       height: 100%;
+      margin-right: 4px;  
     }
     hr{width:100%}
   `;
@@ -115,7 +122,7 @@ export class ll_main extends LitElement {
             backbuttom=${uiState.mode != undefined}
           ></ll-header>
         </div>
-        <hr>
+        <hr style="margin-top: 0px;" />
         <div id="content-left">
           ${leftContentOverride || new ll_notes_list()}
         </div>
@@ -124,7 +131,7 @@ export class ll_main extends LitElement {
       </div>
       <div id="right">
         <div class="header"><ll-header role="right"></ll-header></div>
-        <hr />
+        <hr style="margin-top: 0px;" />
 
         <div id="content-right">${content}</div>
       </div>
