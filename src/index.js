@@ -9,6 +9,13 @@ import { ll_notes_view } from "./notes_view.js";
 import { ll_icon } from "./icon.js";
 import { ll_header } from "./header.js";
 import { ll_settings } from "./settings.js";
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./sw.js").then(() => {
+    console.log("Service Worker Registered");
+  });
+}
+
 export class ll_main extends LitElement {
   static styles = css`
     #content {

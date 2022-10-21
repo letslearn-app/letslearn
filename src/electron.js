@@ -11,6 +11,7 @@ function createWindow() {
     frame: false,
     contextIsolation: true,
     transparent: false,
+    hasShadow:false,
     webPreferences: {
       //注意大小写
       nodeIntegration: true,

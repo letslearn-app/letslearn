@@ -8,9 +8,10 @@
   "background_color": "black",
   "icons": [
     {
-      "src": "https://raw.githubusercontent.com/letslearn-app/letslearn/master/packing/Letslearn.svg",
-      "sizes": "128x128",
-      "type": "image/svg"
+      "src": "pwa_icon.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }

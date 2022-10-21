@@ -1,6 +1,6 @@
 // Import rollup plugins
 import html from "@web/rollup-plugin-html";
-import { copy } from "@web/rollup-plugin-copy";
+import copy from 'rollup-plugin-copy'
 import resolve from "@rollup/plugin-node-resolve";
 import { terser } from "rollup-plugin-terser";
 import minifyHTML from "rollup-plugin-minify-html-literals";
@@ -35,11 +35,15 @@ export default {
       warnings: true,
     }),*/
     // Print bundle summary
-    // Optional: copy any static assets to build directory
     summary(),
-    
-     (process.env.dev && livereload()),
-     (process.env.dev  && serve({ open: true, port: 8080 ,openPage: '/build/index.html', contentBase: '' }))
+
+    copy({
+      targets: [
+        { src: ['src/pwa_icon.png', 'src/sw.js'], dest: 'build/' },    
+      ]
+    }),
+    (process.env.dev && livereload()),
+    (process.env.dev  && serve({ open: false, port: 8080 ,openPage: '/', contentBase: './build' }))
   ],
   output: {
     dir: "build",
