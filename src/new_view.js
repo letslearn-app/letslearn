@@ -1,7 +1,7 @@
 import { LitElement, html, css } from "lit";
 import { ll_button, ll_textinput } from "./widget.js";
 export class ll_new_note extends LitElement {
-  static properties = { edit: {}, name: {} };
+  static properties = { edit: {}, name: {}, addition:{}, };
   static styles = css`
     #title {
       width: 100%;
@@ -43,13 +43,15 @@ export class ll_new_note extends LitElement {
       tags = window.store.getState().data.notes[this.name].tags.join(" ");
     }
 
-    return html`<div style="display: flex; flex-direction: column;height:100%">
-      <ll-textinput
-        value=${(this.edit && name) || ""}
-        placeholder="title"
-        id="title"
-      ></ll-textinput
-      ><textarea id="editor">${content}</textarea>
+    return html`<div id=main style="display: flex; flex-direction: column;height:100%">
+      <div style="display:flex">
+        <ll-textinput
+          value=${(this.edit && name) || ""}
+          placeholder="title"
+          id="title"
+        >
+        </ll-textinput>   
+      </div><textarea id="editor">${content}</textarea>
       <div style="display:flex">
         <ll-textinput
           style="flex:1"
@@ -61,7 +63,8 @@ export class ll_new_note extends LitElement {
           ><ll-icon name="mdiContentSave"></ll-icon
         ></ll-button>
       </div>
-    </div>`;
+    </div>
+    <div id=addition></div>`;
   }
 }
 customElements.define("ll-new-note", ll_new_note);

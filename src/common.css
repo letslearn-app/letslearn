@@ -1,9 +1,10 @@
 body {
-  background: white;
+  background: #ffffe0;
   color: black;
   font-family: sans-serif;
   margin: 0px;
 }
+
 @media (prefers-color-scheme: dark) {
   body {
     background: #2a2a2e;

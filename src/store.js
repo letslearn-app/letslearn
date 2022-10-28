@@ -1,16 +1,17 @@
 import { createStore, combineReducers } from "redux";
 export const LL_DATA_VERISION = 1; // Increace it only when data model changed
 function llDataReducer(state = { notes: {}, LL_DATA_VERISION }, action) {
-  state["__JUST_LOADED"] = false;
+  if (action.type.startsWith("notes")){
+  state["__JUST_LOADED"] = false;}
   switch (action.type) {
     case "notes/add":
       var note = {
         name: action.name,
         content: action.content,
+        type: action.noteType,
+        tags: action.tags,
+        addition: action.addition||{}
       };
-      if (action.tags instanceof Array) {
-        note.tags = action.tags;
-      }
       state["notes"][action.name] = note;
       return state;
     case "notes/del":
@@ -25,7 +26,8 @@ function llDataReducer(state = { notes: {}, LL_DATA_VERISION }, action) {
   }
 }
 function llUiReducer(state = {}, action) {
-  state = {};
+  if (action.type.startsWith("ui")){
+  state = {};}
   switch (action.type) {
     case "ui/view":
       state.mode = "view";

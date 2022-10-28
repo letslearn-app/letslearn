@@ -21,7 +21,7 @@ export class ll_main extends LitElement {
     #content {
       --ll-left-size: 20%;
       --ll-header-height: 10px;
-      --ll-footer-height: 4vh;
+      --ll-footer-height: 20px;
       overflow: hidden;
     }
     .header {
@@ -31,9 +31,13 @@ export class ll_main extends LitElement {
       height: var(--ll-header-height);
       padding-top: 8px;
       padding-bottom: 10px;
+      margin-bottom:4px;
+      border-bottom: solid;
+      border-width:1px;
     }
     .footer {
-      margin-top: 6px
+      margin-top: 6px;
+      margin-left:4px;
       width: 100%;
       height: var(--ll-footer-height);
     }
@@ -49,7 +53,11 @@ export class ll_main extends LitElement {
     @media only screen and (max-width: 600px) {
     #left:hover{
       width: 100%
-    }}
+    }
+    #left{
+      overflow:hidden;
+    }
+    }
     #right {
       height: 100vh;
       margin-left: 1px;
@@ -59,10 +67,20 @@ export class ll_main extends LitElement {
       overflow: auto;
       height: calc( 100vh - (var(--ll-header-height) + 4%));  
     }
+    .content::-webkit-scrollbar{
+      width:4px;
+    }
+    .content::-webkit-scrollbar-track{
+      background-color: initial;
+    }
+    .content::-webkit-scrollbar-thumb{
+      background-color: white;
+    }
     #content-left {
       flex: 1;
       overflow: auto;
       height: 100%;
+      margin-left:4px;
       margin-right: 4px;  
     }
     hr{width:100%}
@@ -74,6 +92,14 @@ export class ll_main extends LitElement {
     store.subscribeDataChange(this.syncData.bind(this));
     store.subscribeUiChange(this.update.bind(this));
     this.view = undefined;
+    window.onbeforeunload=()=>{
+      localStorage.setItem("uiStatus",JSON.stringify(store.getState().ui))
+    }
+    var uiStatus=localStorage.getItem("uiStatus")
+    if (uiStatus&&uiStatus!="{}"){
+      store.getState().ui=JSON.parse(uiStatus)
+      localStorage.removeItem("uiStatus")
+    }
   }
 
   loadData() {
@@ -129,8 +155,7 @@ export class ll_main extends LitElement {
             backbuttom=${uiState.mode != undefined}
           ></ll-header>
         </div>
-        <hr style="margin-top: 0px;" />
-        <div id="content-left">
+        <div id="content-left" class=content>
           ${leftContentOverride || new ll_notes_list()}
         </div>
         <hr style="margin:0px;" />
@@ -138,9 +163,7 @@ export class ll_main extends LitElement {
       </div>
       <div id="right">
         <div class="header"><ll-header role="right"></ll-header></div>
-        <hr style="margin-top: 0px;" />
-
-        <div id="content-right">${content}</div>
+        <div class=content id="content-right">${content}</div>
       </div>
     </div>`;
   }

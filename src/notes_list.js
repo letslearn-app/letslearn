@@ -16,11 +16,17 @@ export class ll_notes_list extends LitElement {
       text-decoration: underline;
     }
     .note-item {
-      margin: 4px;
+      margin-top: 4px;
+      margin-left: 4px;
+      margin-right: 4px;
+      margin-bottom: 10px;
       border-radius: 6px;
-      border: solid;
-      border-width: 1px;
-      padding: 2px;
+      box-shadow: black 0px 0px 7px 0px;
+      overflow: hidden;
+      padding: 4px;
+    }
+    .button{
+      float:right;
     }
   `;
   constructor() {
@@ -92,13 +98,14 @@ export class ll_notes_list extends LitElement {
             <a id=${i} @click=${viewFunc} >
               <h3 style="display:inline"class=title-link>${i}</h3>
             </a> 
-            &nbsp 
+            &nbsp
+            <div  class=button>
             <ll-button @click=${editFunc}>
               <ll-icon name=mdiPencil></ll-icon>
             </ll-button>
-            <ll-button @click=${delFunc}>
+            <ll-button class=button @click=${delFunc}>
               <ll-icon name=mdiDelete ></ll-icon>
-            </ll-button>
+            </ll-button></div>
             </br>
             <div class=content-preview>${unsafeHTML(content)}</div>
             </div>`

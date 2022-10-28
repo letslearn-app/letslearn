@@ -11,14 +11,14 @@ function createWindow() {
     frame: false,
     contextIsolation: true,
     transparent: false,
-    hasShadow:false,
+    hasShadow: false,
     webPreferences: {
       //注意大小写
       nodeIntegration: true,
     },
   });
   mainWindow.title = "Letslearn";
-  mainWindow.setMinimumSize(1040, 600);
+  mainWindow.setMinimumSize(800, 600);
   // and load the index.html of the app.
   mainWindow.loadFile("index.html");
 }

@@ -47,7 +47,7 @@ export class ll_settings extends LitElement {
   eraseData() {
     if (confirm("Are you sure?")) {
       window.store.dispatch({ type: "state/set", state: { notes: {} } });
-      window.store.dispatch({ type: "" });
+      window.store.dispatch({ type: "ui/" });
     }
   }
   setSearchContent(searchContent) {
