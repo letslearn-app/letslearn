@@ -9,12 +9,11 @@ function createWindow() {
     height: 600,
     autoHideMenuBar: true,
     frame: false,
-    contextIsolation: true,
     transparent: false,
     hasShadow: false,
     webPreferences: {
-      //注意大小写
       nodeIntegration: true,
+      contextIsolation: false,
     },
   });
   mainWindow.title = "Letslearn";

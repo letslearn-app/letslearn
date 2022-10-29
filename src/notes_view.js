@@ -30,18 +30,19 @@ export class ll_notes_view extends LitElement {
       "\n",
       "<br>"
     );
-    var ele = document.createElement("div");
-    ele.innerHTML = content;
-    ele.querySelectorAll("pre code").forEach((el) => {
+    var contentDom = document.createElement("div");
+    var contentShadow=contentDom.attachShadow({mode:"open"})
+    contentShadow.innerHTML = `<link rel=stylesheet href=${window.hightlightjs_css_url}></link>${content}`;
+    contentShadow.querySelectorAll("pre code").forEach((el) => {
       hljs.highlightElement(el);
     });
-    return html`<link rel=stylesheet href=${window.hightlightjs_css_url}></link>
+    return html`
                 <div style="margin: 0.5rem;">
                   ${ additionContentIcon.length!=0&&html`
                     <div style="display:flex">Addition contents:&nbsp${additionContentIcon}
                     </div>
                   `||html``}
-                  ${ele}
+                  ${contentDom}
                 </div>`;
   }
 }

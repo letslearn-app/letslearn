@@ -10,7 +10,47 @@ import { ll_icon } from "./icon.js";
 import { ll_header } from "./header.js";
 import { ll_settings } from "./settings.js";
 
-if ("serviceWorker" in navigator) {
+
+
+window.letslearn={flags:{}}
+
+// Set the flags
+window.letslearn.flags.serviceWorker=false
+
+if ( userAgent.indexOf(" electron/") > 1){
+  window.letslearn.flags.hasWinbuttoms=true
+  window.letslearn.flags.handleLinksByElectron=true
+  window.letslearn.flags.serviceWorker=false
+  window.letslearn.flags.requireElectron=true
+}
+
+
+// Require Electron module
+if (window.letslearn.flags.requireElectron){
+  window.electron=require("electron")
+}
+
+
+// Handle links by electron
+if(window.letslearn.flags.handleLinksByElectron){
+  window.addEventListener("click", (ev) => {
+    for (i of ev.path) {
+      if (i.tagName == "A") {
+        if (
+          i.href != "" &&
+          !(i.href.startsWith("#") || i.href.startsWith("blob"))
+        ) {
+          ev.preventDefault();
+          console.log(i.href);
+          electron.shell.openExternal(i.href);
+        }
+     }
+    }
+  });
+}
+
+// ServiceWorker
+if ("serviceWorker" in navigator && window.letslearn.flags.serviceWorker) {
   navigator.serviceWorker.register("./sw.js").then(() => {
     console.log("Service Worker Registered");
   });

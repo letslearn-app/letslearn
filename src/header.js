@@ -20,7 +20,7 @@ export class ll_header extends LitElement {
   render() {
     if (this.role == "right") {
       var winButtoms = html`&nbsp`;
-      if (window.isElectron) {
+      if (window.letslearn.flags.hasWinbuttoms){
         winButtoms = html`<ll-icon
           class="buttoms win-buttoms"
           name="mdiClose"
