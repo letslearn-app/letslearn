@@ -5,14 +5,8 @@ function llDataReducer(state = { notes: {}, LL_DATA_VERISION }, action) {
   state["__JUST_LOADED"] = false;}
   switch (action.type) {
     case "notes/add":
-      var note = {
-        name: action.name,
-        content: action.content,
-        type: action.noteType,
-        tags: action.tags,
-        addition: action.addition||{}
-      };
-      state["notes"][action.name] = note;
+      var note = action.content
+      state["notes"][action.content.name] = note;
       return state;
     case "notes/del":
       delete state["notes"][action.name];

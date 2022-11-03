@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "lit";
+import { LitElement, html, css, unsafeCSS } from "lit";
 import localForage from "localforage";
 
 import { store } from "./store.js";
@@ -10,6 +10,7 @@ import { ll_icon } from "./icon.js";
 import { ll_header } from "./header.js";
 import { ll_settings } from "./settings.js";
 
+import { default as ll_main_css } from './css/index.css'
 
 
 window.letslearn={flags:{}}
@@ -56,82 +57,20 @@ if ("serviceWorker" in navigator && window.letslearn.flags.serviceWorker) {
   });
 }
 
+
+// Main class
 export class ll_main extends LitElement {
-  static styles = css`
-    #content {
-      --ll-left-size: 20%;
-      --ll-header-height: 10px;
-      --ll-footer-height: 20px;
-      overflow: hidden;
-    }
-    .header {
-      width: 100%;
-      -webkit-user-select: none;
-      -webkit-app-region: drag;
-      height: var(--ll-header-height);
-      padding-top: 8px;
-      padding-bottom: 10px;
-      margin-bottom:4px;
-      border-bottom: solid;
-      border-width:1px;
-    }
-    .footer {
-      margin-top: 6px;
-      margin-left:4px;
-      width: 100%;
-      height: var(--ll-footer-height);
-    }
-    #left {
-      float: left;
-      width: var(--ll-left-size);
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      border-right-style: solid;
-      border-width: 1px;
-    }
-    @media only screen and (max-width: 600px) {
-    #left:hover{
-      width: 100%
-    }
-    #left{
-      overflow:hidden;
-    }
-    }
-    #right {
-      height: 100vh;
-      margin-left: 1px;
-      width: calc(100% - var(--ll-left-size));
-    }
-    #content-right {
-      overflow: auto;
-      height: calc( 100vh - (var(--ll-header-height) + 4%));  
-    }
-    .content::-webkit-scrollbar{
-      width:4px;
-    }
-    .content::-webkit-scrollbar-track{
-      background-color: initial;
-    }
-    .content::-webkit-scrollbar-thumb{
-      background-color: white;
-    }
-    #content-left {
-      flex: 1;
-      overflow: auto;
-      height: 100%;
-      margin-left:4px;
-      margin-right: 4px;  
-    }
-    hr{width:100%}
-  `;
+  static styles = css`${unsafeCSS(ll_main_css)}`;
   constructor() {
-    super();
+    super(); 
     window.store = store;
     this.loadData();
+
     store.subscribeDataChange(this.syncData.bind(this));
     store.subscribeUiChange(this.update.bind(this));
+
     this.view = undefined;
+
     window.onbeforeunload=()=>{
       localStorage.setItem("uiStatus",JSON.stringify(store.getState().ui))
     }
@@ -140,6 +79,7 @@ export class ll_main extends LitElement {
       store.getState().ui=JSON.parse(uiStatus)
       localStorage.removeItem("uiStatus")
     }
+    
   }
 
   loadData() {

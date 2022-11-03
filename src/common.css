@@ -12,10 +12,11 @@ body {
   }
 }
 
+
 .darkmode {
   background: #2a2a2e;
   color: #ccc;
 }
-html::-webkit-scrollbar {
+html::-webkit-scrollbar{
   display: none;
 }

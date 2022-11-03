@@ -2,6 +2,7 @@ import { LitElement, html, css } from "lit";
 import localforage from "localforage";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 export class ll_settings extends LitElement {
+ 
   static properties = { role: {} };
   constructor() {
     super();
