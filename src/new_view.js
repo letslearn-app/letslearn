@@ -101,7 +101,7 @@ export class ll_new_note extends LitElement {
     } else {
       var current = this.current.addition[this.addition];
     }
-    var addition = Object.keys(this.current.addition);
+    var addition = Object.keys(this.current.addition||{});
     addition.splice(0, 0, undefined);
     addition = addition.map((name) => {
       return html`<div

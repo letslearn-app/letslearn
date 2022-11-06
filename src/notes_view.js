@@ -36,7 +36,7 @@ export class ll_notes_view extends LitElement {
     var hljsCssLight=document.getElementById("hightlightjs-css").href
     var hljsCssDark=document.getElementById("hightlightjs-css-dark").href
     var note = store.getState().data.notes[this.name];
-    var additionContentIcon = Object.keys(note.addition);
+    var additionContentIcon = Object.keys(note.addition||{});
     additionContentIcon = additionContentIcon.map((i) => {
       if (i == this.addition) {
         return html`<div
