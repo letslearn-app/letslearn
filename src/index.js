@@ -17,7 +17,7 @@ window.letslearn = { flags: {} };
 // Set the flags
 window.letslearn.flags.serviceWorker = true;
 
-if (navigator.userAgent.indexOf(" electron/") > 1) {
+if (navigator.userAgent.indexOf("Electron/") > 1) {
   window.letslearn.flags.hasWinbuttoms = true;
   window.letslearn.flags.handleLinksByElectron = true;
   window.letslearn.flags.serviceWorker = false;
