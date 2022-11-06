@@ -1,3 +1,4 @@
+import { mdiArrowLeft, mdiClose, mdiCogOutline } from "@mdi/js";
 import { LitElement, html, css } from "lit";
 
 export class ll_header extends LitElement {
@@ -20,10 +21,10 @@ export class ll_header extends LitElement {
   render() {
     if (this.role == "right") {
       var winButtoms = html`&nbsp`;
-      if (window.letslearn.flags.hasWinbuttoms){
+      if (window.letslearn.flags.hasWinbuttoms) {
         winButtoms = html`<ll-icon
           class="buttoms win-buttoms"
-          name="mdiClose"
+          path=${mdiClose}
           @click=${() => {
             window.close();
           }}
@@ -45,7 +46,7 @@ export class ll_header extends LitElement {
           html`
             <ll-icon
               class="buttoms"
-              name="mdiArrowLeft"
+              path=${mdiArrowLeft}
               @click=${() => {
                 window.store.dispatch({ type: "ui/norm" });
               }}
@@ -58,7 +59,7 @@ export class ll_header extends LitElement {
     }
     if (this.role == "footer") {
       return html`<ll-icon
-        name="mdiCogOutline"
+        path=${mdiCogOutline}
         @click=${() => {
           window.store.dispatch({ type: "ui/settings" });
         }}

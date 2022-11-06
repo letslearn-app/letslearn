@@ -16,6 +16,9 @@ export class ll_button extends LitElement {
       border-width: 1px;
       outline: none;
     }
+    button:active {
+      filter: invert(0.5);
+    }
   `;
   constructor() {
     super();
@@ -39,12 +42,14 @@ export class ll_textinput extends LitElement {
   `;
   constructor() {
     super();
+    this.value=""
   }
   updateValue() {
     this.value = this.shadowRoot.getElementById("input").value;
   }
   render() {
-    return html`<div style="display:flex;height:100%;"><input id=input placeholder=${this.placeholder} value=${this.value} @input=${this.updateValue}></input></div>`;
+    this.updateComplete.then(()=>{this.shadowRoot.getElementById("input").value=this.value})
+    return html`<div style="display:flex;height:100%;"><input id=input placeholder=${this.placeholder} @input=${this.updateValue}></input></div>`;
   }
 }
 

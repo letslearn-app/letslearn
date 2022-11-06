@@ -5,52 +5,20 @@
   <meta charset="utf-8" />
   <link rel="icon" href="data:;base64,=" />
   <link
+    preload
     rel="stylesheet"
     href="../node_modules/highlight.js/styles//default.css"
     id="hightlightjs-css"
   />
   <link
+    preload
     rel="stylesheet"
     href="../node_modules/highlight.js/styles//dark.css"
     id="hightlightjs-css-dark"
   />
   <link rel="manifest" href="./menifest.json" />
   <link rel="stylesheet" href="./common.css" />
-  <script>
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      window.hightlightjs_css_url = document.getElementById(
-        "hightlightjs-css-dark"
-      ).href;
-    } else {
-      window.hightlightjs_css_url =
-        document.getElementById("hightlightjs-css").href;
-    }
-    var userAgent = navigator.userAgent.toLowerCase();
-    window.isElectron = userAgent.indexOf(" electron/") > 1;
-    if (window.isElectron) {
-      window.addEventListener("click", (ev) => {
-        for (i of ev.path) {
-          if (i.tagName == "A") {
-            if (
-              i.href != "" &&
-              !(i.href.startsWith("#") || i.href.startsWith("blob"))
-            ) {
-              ev.preventDefault();
-              console.log(i.href);
-              electron.shell.openExternal(i.href);
-            }
-          }
-        }
-      });
-      window.electron = require("electron");
-    }
-  </script>
   <script type="module" src="index.js"></script>
-  <style>
-    body {
-      overflow: hidden;
-    }
-  </style>
 </head>
 <body>
   <ll-main></ll-main>

@@ -10,30 +10,27 @@ import { ll_icon } from "./icon.js";
 import { ll_header } from "./header.js";
 import { ll_settings } from "./settings.js";
 
-import { default as ll_main_css } from './css/index.css'
+import { default as ll_main_css } from "./css/index.css";
 
-
-window.letslearn={flags:{}}
+window.letslearn = { flags: {} };
 
 // Set the flags
-window.letslearn.flags.serviceWorker=false
+window.letslearn.flags.serviceWorker = true;
 
-if ( userAgent.indexOf(" electron/") > 1){
-  window.letslearn.flags.hasWinbuttoms=true
-  window.letslearn.flags.handleLinksByElectron=true
-  window.letslearn.flags.serviceWorker=false
-  window.letslearn.flags.requireElectron=true
+if (navigator.userAgent.indexOf(" electron/") > 1) {
+  window.letslearn.flags.hasWinbuttoms = true;
+  window.letslearn.flags.handleLinksByElectron = true;
+  window.letslearn.flags.serviceWorker = false;
+  window.letslearn.flags.requireElectron = true;
 }
-
 
 // Require Electron module
-if (window.letslearn.flags.requireElectron){
-  window.electron=require("electron")
+if (window.letslearn.flags.requireElectron) {
+  window.electron = require("electron");
 }
 
-
 // Handle links by electron
-if(window.letslearn.flags.handleLinksByElectron){
+if (window.letslearn.flags.handleLinksByElectron) {
   window.addEventListener("click", (ev) => {
     for (i of ev.path) {
       if (i.tagName == "A") {
@@ -45,7 +42,7 @@ if(window.letslearn.flags.handleLinksByElectron){
           console.log(i.href);
           electron.shell.openExternal(i.href);
         }
-     }
+      }
     }
   });
 }
@@ -57,12 +54,13 @@ if ("serviceWorker" in navigator && window.letslearn.flags.serviceWorker) {
   });
 }
 
-
 // Main class
 export class ll_main extends LitElement {
-  static styles = css`${unsafeCSS(ll_main_css)}`;
+  static styles = css`
+    ${unsafeCSS(ll_main_css)}
+  `;
   constructor() {
-    super(); 
+    super();
     window.store = store;
     this.loadData();
 
@@ -71,15 +69,14 @@ export class ll_main extends LitElement {
 
     this.view = undefined;
 
-    window.onbeforeunload=()=>{
-      localStorage.setItem("uiStatus",JSON.stringify(store.getState().ui))
+    window.onbeforeunload = () => {
+      localStorage.setItem("uiStatus", JSON.stringify(store.getState().ui));
+    };
+    var uiStatus = localStorage.getItem("uiStatus");
+    if (uiStatus && uiStatus != "{}") {
+      store.getState().ui = JSON.parse(uiStatus);
+      localStorage.removeItem("uiStatus");
     }
-    var uiStatus=localStorage.getItem("uiStatus")
-    if (uiStatus&&uiStatus!="{}"){
-      store.getState().ui=JSON.parse(uiStatus)
-      localStorage.removeItem("uiStatus")
-    }
-    
   }
 
   loadData() {
@@ -135,15 +132,16 @@ export class ll_main extends LitElement {
             backbuttom=${uiState.mode != undefined}
           ></ll-header>
         </div>
-        <div id="content-left" class=content>
+        <div id="content-left" class="content">
           ${leftContentOverride || new ll_notes_list()}
         </div>
         <hr style="margin:0px;" />
         <div class="footer"><ll-header role="footer"></ll-header></div>
       </div>
+      <div style="border-left: solid;border-left-width: 1px;"></div>
       <div id="right">
         <div class="header"><ll-header role="right"></ll-header></div>
-        <div class=content id="content-right">${content}</div>
+        <div class="content" id="content-right">${content}</div>
       </div>
     </div>`;
   }

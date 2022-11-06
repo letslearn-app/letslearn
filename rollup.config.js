@@ -41,7 +41,8 @@ export default {
 
     copy({
       targets: [
-        { src: ['src/pwa_icon.png', 'src/sw.js'], dest: 'build/' },    
+        { src: [ 'src/sw.js'], dest: 'build/' },    
+        {src:['src/pwa_icon.png'],dest:"build/assets"}
       ]
     }),
     (process.env.dev && livereload()),

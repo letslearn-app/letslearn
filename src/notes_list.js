@@ -2,6 +2,7 @@ import { LitElement, html, css } from "lit";
 import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { marked } from "marked";
 import { ll_button, ll_textinput } from "./widget.js";
+import { mdiNotePlus, mdiDelete, mdiPencil } from "@mdi/js";
 export class ll_notes_list extends LitElement {
   static properties = { searchRes: {} };
   static styles = css`
@@ -25,8 +26,8 @@ export class ll_notes_list extends LitElement {
       overflow: hidden;
       padding: 4px;
     }
-    .button{
-      float:right;
+    .button {
+      float: right;
     }
   `;
   constructor() {
@@ -101,10 +102,10 @@ export class ll_notes_list extends LitElement {
             &nbsp
             <div  class=button>
             <ll-button @click=${editFunc}>
-              <ll-icon name=mdiPencil></ll-icon>
+              <ll-icon path=${mdiPencil}></ll-icon>
             </ll-button>
             <ll-button class=button @click=${delFunc}>
-              <ll-icon name=mdiDelete ></ll-icon>
+              <ll-icon path=${mdiDelete} ></ll-icon>
             </ll-button></div>
             </br>
             <div class=content-preview>${unsafeHTML(content)}</div>
@@ -122,7 +123,7 @@ export class ll_notes_list extends LitElement {
             window.store.dispatch({ type: "ui/new" });
           }}
         >
-          <ll-icon name="mdiNotePlus"></ll-icon>
+          <ll-icon path=${mdiNotePlus}></ll-icon>
         </ll-button>
       </div>
       ${notesHtml}`;
