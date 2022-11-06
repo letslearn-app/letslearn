@@ -20,7 +20,8 @@
   </description>
   <screenshots>
     <screenshot type="default">
-      <image type="source">https://raw.githubusercontent.com/letslearn-app/letslearn/master/docs/screenshots/Letslearn%20with%20artcles%20from%20MDN.png</image>
+      <image type="source">https://raw.githubusercontent.com/letslearn-app/letslearn/master/docs/screenshots/1.png</image>
+      <image type="source">https://raw.githubusercontent.com/letslearn-app/letslearn/master/docs/screenshots/2.png</image>
     </screenshot>
   </screenshots>
   <releases>
