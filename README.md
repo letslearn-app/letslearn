@@ -4,6 +4,17 @@ letslearn is a opensource notes app
 
 ![](https://github.com/letslearn-app/letslearn/raw/master/docs/screenshots/1.png)
 
+## Features
+### Already finished
+- Code highlighting
+- Search (title & tag & content)
+- Subnote
+- Markdown
+# Planed
+- Cloud sync
+- Hand writing
+- Jupyter import& running
+
 ## Install
 At present,We only provide linux flatpak binary, other system/format will coming soon
 
