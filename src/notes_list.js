@@ -90,7 +90,7 @@ export class ll_notes_list extends LitElement {
       if (content.length > 50) {
         content = content.slice(0, 50) + "...";
       }
-      var i_safe = i.replace('"', '"');
+      var i_safe = i.replaceAll('"', '\\"');
       var viewFunc = Function(`this.viewNote("${i_safe}")`).bind(this); //Very ugly but work
       var editFunc = Function(`this.editNote("${i_safe}")`).bind(this);
       var delFunc = Function(`this.delNote("${i_safe}")`).bind(this);

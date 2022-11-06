@@ -3,6 +3,8 @@ import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import DOMPurify from "dompurify";
 import { marked } from "marked";
 import hljs from "highlight.js";
+import { default as noteCotentStyle } from "./css/note.js"
+
 export class ll_notes_view extends LitElement {
   static properties = { name: {}, addition: {} };
   static styles = css`
@@ -67,8 +69,10 @@ export class ll_notes_view extends LitElement {
     );
     var contentDom = document.createElement("div");
     var contentShadow = contentDom.attachShadow({ mode: "open" });
-    contentShadow.innerHTML = `<link rel=stylesheet href=${hljsCssDark}></link>${content}`;
-    contentShadow.querySelectorAll("pre code").forEach((el) => {
+
+    contentShadow.innerHTML = `<link rel=stylesheet href=${hljsCssDark}><style>${noteCotentStyle()}</style></link>${content}`;
+    
+    contentShadow.querySelectorAll("code").forEach((el) => {
       hljs.highlightElement(el);
     });
     return html` <div style="margin: 0.5rem;">
