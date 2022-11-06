@@ -42,13 +42,15 @@ export class ll_textinput extends LitElement {
   `;
   constructor() {
     super();
-    this.value=""
+    this.value = "";
   }
   updateValue() {
     this.value = this.shadowRoot.getElementById("input").value;
   }
   render() {
-    this.updateComplete.then(()=>{this.shadowRoot.getElementById("input").value=this.value})
+    this.updateComplete.then(() => {
+      this.shadowRoot.getElementById("input").value = this.value;
+    });
     return html`<div style="display:flex;height:100%;"><input id=input placeholder=${this.placeholder} @input=${this.updateValue}></input></div>`;
   }
 }

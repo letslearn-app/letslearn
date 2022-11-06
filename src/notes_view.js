@@ -6,6 +6,16 @@ import hljs from "highlight.js";
 export class ll_notes_view extends LitElement {
   static properties = { name: {}, addition: {} };
   static styles = css`
+    .addition {
+      display: flex;
+      white-space: nowrap;
+      width: 100%;
+      overflow: auto;
+      overflow-y: hidden;
+    }
+    .addition::-webkit-scrollbar {
+      width: 4px;
+    }
     .addition-icon {
       padding: 4px;
       background: white;
@@ -13,9 +23,9 @@ export class ll_notes_view extends LitElement {
       width: fit-content;
       border-radius: 20px;
       display: inline;
-      margin-right: 2px
+      margin-right: 2px;
     }
-    .addition-active{
+    .addition-active {
       filter: invert(30%);
     }
   `;
@@ -23,16 +33,33 @@ export class ll_notes_view extends LitElement {
     super();
   }
   render() {
+    var hljsCssLight=document.getElementById("hightlightjs-css").href
+    var hljsCssDark=document.getElementById("hightlightjs-css-dark").href
     var note = store.getState().data.notes[this.name];
     var additionContentIcon = Object.keys(note.addition);
     additionContentIcon = additionContentIcon.map((i) => {
-      if (i==this.addition){
-        return html`<div @click=${()=>{this.addition=undefined}} class="addition-icon addition-active">Back to main</div>`
+      if (i == this.addition) {
+        return html`<div
+          @click=${() => {
+            this.addition = undefined;
+          }}
+          class="addition-icon addition-active"
+        >
+          Back to main
+        </div>`;
       }
-      return html`<div @click=${ ()=>{this.addition=i} } class="addition-icon" id=${i}>${i}</div>`;
+      return html`<div
+        @click=${() => {
+          this.addition = i;
+        }}
+        class="addition-icon"
+        id=${i}
+      >
+        ${i}
+      </div>`;
     });
-    if (this.addition){
-      note=note.addition[this.addition]
+    if (this.addition) {
+      note = note.addition[this.addition];
     }
     var content = DOMPurify.sanitize(marked.parse(note.content)).replace(
       "\n",
@@ -40,14 +67,14 @@ export class ll_notes_view extends LitElement {
     );
     var contentDom = document.createElement("div");
     var contentShadow = contentDom.attachShadow({ mode: "open" });
-    contentShadow.innerHTML = `<link rel=stylesheet href=${window.hightlightjs_css_url}></link>${content}`;
+    contentShadow.innerHTML = `<link rel=stylesheet href=${hljsCssDark}></link>${content}`;
     contentShadow.querySelectorAll("pre code").forEach((el) => {
       hljs.highlightElement(el);
     });
     return html` <div style="margin: 0.5rem;">
       ${(additionContentIcon.length != 0 &&
         html`
-          <div style="display:flex">
+          <div class="addition">
             Addition contents:&nbsp${additionContentIcon}
           </div>
         `) ||

@@ -6,14 +6,13 @@ export class ll_settings extends LitElement {
   constructor() {
     super();
     this.settings = {
-      data: html`<a @click=${this.exportData.bind(this)}>Export data file</a
-        ><br /><a
-          style="color:red"
-          @click=${() => {
-            this.eraseData();
-          }}
-          >Erase all the data</a
-        >`,
+      data: html`<a @click=${this.exportData.bind(this)}>Export data file</a>
+        <br/>
+        <a @click=${this.importData}>Import Data</a></br>
+        <a style="color:red"
+          @click=${this.eraseData}>
+          Erase all the data</a>
+      `,
       searching: (() => {
         var chkbox = document.createElement("input");
         chkbox.type = "checkbox";
@@ -44,10 +43,37 @@ export class ll_settings extends LitElement {
     var url = URL.createObjectURL(blob);
     this.downloadFile(url, "letslearnData.json");
   }
+  importData() {
+    this.readFile().then((file) => {
+      var reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = () => {
+        window.store.dispatch({
+          type: "state/set",
+          state: JSON.parse(reader.result),
+        });
+        window.store.dispatch({ type: "notes/" });
+      };
+    });
+  }
+  readFile() {
+    var input = document.createElement("input");
+    input.type = "file";
+    input.click();
+    return new Promise((resolve, reject) => {
+      input.onchange = () => {
+        if (input.files.length != 0) {
+          resolve(input.files[0]);
+        } else {
+          reject("");
+        }
+      };
+    });
+  }
   eraseData() {
     if (confirm("Are you sure?")) {
       window.store.dispatch({ type: "state/set", state: { notes: {} } });
-      window.store.dispatch({ type: "ui/" });
+      window.store.dispatch({ type: "notes/" });
     }
   }
   setSearchContent(searchContent) {

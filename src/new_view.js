@@ -17,6 +17,16 @@ export class ll_new_note extends LitElement {
       color: inherit;
       background: initial;
     }
+    .addition {
+      display: flex;
+      white-space: nowrap;
+      width: 100%;
+      overflow: auto;
+      overflow-y: hidden;
+    }
+    .addition::-webkit-scrollbar {
+      width: 4px;
+    }
     .addition-item {
       display: inline;
       background: #444444;
@@ -35,15 +45,15 @@ export class ll_new_note extends LitElement {
     var defaultCurrent = { name: "", content: "", tags: [], addition: {} };
     if (state.mode == "edit") {
       this.edit = true;
-        this.name = state.name;
-        this.current =
+      this.name = state.name;
+      this.current =
         window.store.getState().data.notes[state.name] || defaultCurrent;
       if (!this.current.tags) {
         this.current.tags = [];
       }
     } else {
       this.current = defaultCurrent;
-      console.log(defaultCurrent)
+      console.log(defaultCurrent);
     }
   }
   add() {
@@ -82,7 +92,7 @@ export class ll_new_note extends LitElement {
     }
   }
   addAddition() {
-    this.current.addition["New subnote"] = { name: "New subnote", content: '' };
+    this.current.addition["New subnote"] = { name: "New subnote", content: "" };
     this.update();
   }
   render() {
@@ -96,34 +106,37 @@ export class ll_new_note extends LitElement {
     addition = addition.map((name) => {
       return html`<div
         @click=${() => {
-          this.addition = name;this.update()
+          this.addition = name;
+          this.update();
         }}
         class="addition-item"
       >
-        ${name||name==undefined&&"Main note"||name}
+        ${name || (name == undefined && "Main note") || name}
       </div>`;
     });
 
-    this.updateComplete.then(()=>{
-      var title=this.shadowRoot.getElementById("title")
-      title.value=current.name
-      title.update()
-      this.shadowRoot.getElementById("editor").value=current.content
-    })   
+    this.updateComplete.then(() => {
+      var title = this.shadowRoot.getElementById("title");
+      title.value = current.name;
+      title.update();
+      this.shadowRoot.getElementById("editor").value = current.content;
+    });
     return html`<div
         id="main"
         style="display: flex; flex-direction: column;height:100%"
       >
         <div style="display:flex">
-                  <ll-textinput
-          placeholder="title"
-          id="title"
-          @input=${()=>{this.sync("title")}}
-        >
-        </ll-textinput>   
+          <ll-textinput
+            placeholder="title"
+            id="title"
+            @input=${() => {
+              this.sync("title");
+            }}
+          >
+          </ll-textinput>
         </div>
-        <div style="display:flex;">
-          <div style="width:100%">${addition}</div>
+        <div style="display:flex">
+          <div class="addition">${addition}</div>
           <ll-button
             @click=${() => {
               this.addAddition();
@@ -131,14 +144,15 @@ export class ll_new_note extends LitElement {
             >Add</ll-button
           >
         </div>
-        
+
         <textarea
           id="editor"
           @input=${() => {
             this.sync("content");
           }}
         >
-${current.content}</textarea>
+${current.content}</textarea
+        >
         <div style="display:flex">
           <ll-textinput
             @input=${() => {
