@@ -1,4 +1,4 @@
-import { mdiArrowLeft, mdiClose, mdiCogOutline } from "@mdi/js";
+import { mdiArrowLeft, mdiClose, mdiCogOutline, mdiInformationOutline } from "@mdi/js";
 import { LitElement, html, css } from "lit";
 
 export class ll_header extends LitElement {
@@ -58,12 +58,14 @@ export class ll_header extends LitElement {
       </div>`;
     }
     if (this.role == "footer") {
-      return html`<ll-icon
-        path=${mdiCogOutline}
+      return html`<ll-icon path=${mdiCogOutline}
         @click=${() => {
           window.store.dispatch({ type: "ui/settings" });
         }}
-      ></ll-icon>`;
+        ></ll-icon>&nbsp
+        <ll-icon path=${mdiInformationOutline}
+        ></ll-icon>
+      `;
     }
     return html`<div>&nbsp</div>`;
   }

@@ -30,9 +30,9 @@ if (window.letslearn.flags.requireElectron) {
 }
 
 // Handle links by electron
-if (window.letslearn.flags.handleLinksByElectron) {
+if ( window.letslearn.flags.handleLinksByElectron ) {
   window.addEventListener("click", (ev) => {
-    for (i of ev.path) {
+    for (var i of ev.path) {
       if (i.tagName == "A") {
         if (
           i.href != "" &&
