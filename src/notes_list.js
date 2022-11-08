@@ -70,6 +70,7 @@ export class ll_notes_list extends LitElement {
   }
   delNote(name) {
     window.store.dispatch({ type: "notes/del", name: name });
+    window.store.dispatch({ type: "ui/" });
   }
   render() {
     if (this.searchRes) {
