@@ -1,4 +1,4 @@
-import { mdiContentSave } from "@mdi/js";
+import { mdiClose, mdiContentSave } from "@mdi/js";
 import { LitElement, html, css } from "lit";
 import { ll_button, ll_textinput } from "./widget.js";
 export class ll_new_note extends LitElement {
@@ -37,7 +37,15 @@ export class ll_new_note extends LitElement {
       color: #ccc;
       border-top-right-radius: 10px;
       margin-right: 4px;
+    
     }
+    .delete-icon{ 
+  display:inline;
+  position: relative;
+   top: 2px;
+       border-radius: 100%;
+}
+    .delete-icon:hover{color:red;}
   `;
   constructor() {
     super();
@@ -47,13 +55,12 @@ export class ll_new_note extends LitElement {
       this.edit = true;
       this.name = state.name;
       this.current =
-        window.store.getState().data.notes[state.name] || defaultCurrent;
+        JSON.parse(JSON.stringify(window.store.getState().data.notes[state.name])) || defaultCurrent;
       if (!this.current.tags) {
         this.current.tags = [];
       }
     } else {
       this.current = defaultCurrent;
-      console.log(defaultCurrent);
     }
   }
   add() {
@@ -95,11 +102,16 @@ export class ll_new_note extends LitElement {
     this.current.addition["New subnote"] = { name: "New subnote", content: "" };
     this.update();
   }
+  deleteAddition(name){
+    this.addition=undefined
+    delete this.current.addition[name]
+    this.update()
+  }
   render() {
     if (this.addition == undefined) {
       var current = this.current;
     } else {
-      var current = this.current.addition[this.addition];
+      var current = this.current.addition[this.addition]||this.current;
     }
     var addition = Object.keys(this.current.addition||{});
     addition.splice(0, 0, undefined);
@@ -112,7 +124,13 @@ export class ll_new_note extends LitElement {
         class="addition-item"
       >
         ${name || (name == undefined && "Main note") || name}
-      </div>`;
+       ${(name!=undefined&&html`
+         <div 
+          @click=${()=>{this.deleteAddition(name);return false}}
+          class=delete-icon
+         >
+           <ll-icon path=${mdiClose}></ll-icon>
+         </div>`)||""}`;
     });
 
     this.updateComplete.then(() => {

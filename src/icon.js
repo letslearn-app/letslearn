@@ -6,7 +6,7 @@ export class ll_icon extends LitElement {
     :host {
       display: inline;
     }
-  `;
+    `;
   render() {
     return html`<svg style="width:1rem;height:1rem" viewBox="0 0 24 24">
       <path fill="currentColor" d=${this.path} />
