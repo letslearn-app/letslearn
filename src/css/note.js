@@ -1,5 +1,7 @@
+import {default as hljsStyle} from 'highlight.js/styles/dark.css'
 function makeStyle(){
 return `
+${hljsStyle}
 img{
   box-shadow: 0px 0 10px 0px black;
   max-width:100%;

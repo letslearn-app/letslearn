@@ -63,7 +63,11 @@ export class ll_header extends LitElement {
           window.store.dispatch({ type: "ui/settings" });
         }}
         ></ll-icon>&nbsp
-        <ll-icon path=${mdiInformationOutline}
+        <ll-icon 
+        @click=${() => {
+          window.store.dispatch({ type: "ui/about" }); 
+        }}
+        path=${mdiInformationOutline}
         ></ll-icon>
       `;
     }

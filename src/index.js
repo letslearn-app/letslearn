@@ -9,8 +9,10 @@ import { ll_notes_view } from "./notes_view.js";
 import { ll_icon } from "./icon.js";
 import { ll_header } from "./header.js";
 import { ll_settings } from "./settings.js";
+import { ll_about } from "./about.js"
 
 import { default as ll_main_css } from "./css/index.css";
+import { default as ll_body_css } from "./css/common.css";  
 
 window.letslearn = { flags: {} };
 
@@ -53,6 +55,11 @@ if ("serviceWorker" in navigator && window.letslearn.flags.serviceWorker) {
     console.log("Service Worker Registered");
   });
 }
+
+// Inject style
+var styleElement=document.createElement("style")
+styleElement.innerText=ll_body_css
+document.getElementsByTagName("head")[0].appendChild(styleElement)
 
 // Main class
 export class ll_main extends LitElement {
@@ -119,6 +126,10 @@ export class ll_main extends LitElement {
         content.role = "right";
         leftContentOverride = new ll_settings();
         content.role = "left";
+        break;
+      case "about":
+        content = new ll_about()
+        leftContentOverride =html``
         break;
       default:
         content = html``;

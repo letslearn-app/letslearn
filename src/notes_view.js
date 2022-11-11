@@ -35,8 +35,6 @@ export class ll_notes_view extends LitElement {
     super();
   }
   render() {
-    var hljsCssLight=document.getElementById("hightlightjs-css").href
-    var hljsCssDark=document.getElementById("hightlightjs-css-dark").href
     var note = store.getState().data.notes[this.name];
     var additionContentIcon = Object.keys(note.addition||{});
     additionContentIcon = additionContentIcon.map((i) => {
@@ -70,7 +68,7 @@ export class ll_notes_view extends LitElement {
     var contentDom = document.createElement("div");
     var contentShadow = contentDom.attachShadow({ mode: "open" });
 
-    contentShadow.innerHTML = `<link rel=stylesheet href=${hljsCssDark}><style>${noteCotentStyle()}</style></link>${content}`;
+    contentShadow.innerHTML = `<style>${noteCotentStyle()}</style>${content}`;
     
     contentShadow.querySelectorAll("code").forEach((el) => {
       hljs.highlightElement(el);

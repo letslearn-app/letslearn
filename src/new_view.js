@@ -29,7 +29,7 @@ export class ll_new_note extends LitElement {
     }
     .addition-item {
       display: inline;
-      background: #444444;
+      background: var(--ll-normal-color);
       width: fit-content;
       border-top-left-radius: 10px;
       padding-left: 4px;
@@ -38,6 +38,9 @@ export class ll_new_note extends LitElement {
       border-top-right-radius: 10px;
       margin-right: 4px;
     
+    }
+    .addition-active{
+      background: var(--ll-active-color);
     }
     .delete-icon{ 
   display:inline;
@@ -116,18 +119,22 @@ export class ll_new_note extends LitElement {
     var addition = Object.keys(this.current.addition||{});
     addition.splice(0, 0, undefined);
     addition = addition.map((name) => {
+      var active=""
+      if (name==this.addition){
+      active="addition-active"
+      }
       return html`<div
         @click=${() => {
           this.addition = name;
           this.update();
         }}
-        class="addition-item"
+        class="addition-item ${active}"
       >
         ${name || (name == undefined && "Main note") || name}
        ${(name!=undefined&&html`
          <div 
           @click=${()=>{this.deleteAddition(name);return false}}
-          class=delete-icon
+          class=" delete-icon "
          >
            <ll-icon path=${mdiClose}></ll-icon>
          </div>`)||""}`;

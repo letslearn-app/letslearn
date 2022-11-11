@@ -40,6 +40,10 @@ function llUiReducer(state = {}, action) {
       state.mode = "settings";
       state.name="Settings"
       return state;
+    case "ui/about":
+      state.mode="about"
+      state.name="About"
+      return state
     case "ui/norm":
       state = {};
       return state;

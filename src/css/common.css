@@ -3,6 +3,9 @@ body {
   color: black;
   font-family: sans-serif;
   margin: 0px;
+  --ll-active-color: #22222c;
+  --ll-normal-color: #3a3a3a;
+
 }
 
 @media (prefers-color-scheme: dark) {
