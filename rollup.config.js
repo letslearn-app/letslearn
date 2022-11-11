@@ -30,12 +30,11 @@ export default {
     // Minify HTML template literals
     minifyHTML(),
     // Minify JS
-    /*
     terser({
       ecma: 2020,
       module: false,
       warnings: true,
-    }),*/
+    }),
     // Print bundle summary
     summary(),
 

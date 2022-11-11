@@ -58,7 +58,7 @@ if ("serviceWorker" in navigator && window.letslearn.flags.serviceWorker) {
 
 // Inject style
 var styleElement=document.createElement("style")
-styleElement.innerText=ll_body_css
+styleElement.innerHTML=ll_body_css
 document.getElementsByTagName("head")[0].appendChild(styleElement)
 
 // Main class

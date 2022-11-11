@@ -52,7 +52,8 @@
       background-color: initial;
     }
     .content::-webkit-scrollbar-thumb{
-      background-color: white;
+          background-color: rgba(249, 249, 249, 0.39);
+    border-radius: 4px;
     }
     #content-left {
       flex: 1;

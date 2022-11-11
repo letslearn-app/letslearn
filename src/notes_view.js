@@ -40,7 +40,8 @@ export class ll_notes_view extends LitElement {
     additionContentIcon = additionContentIcon.map((i) => {
       if (i == this.addition) {
         return html`<div
-          @click=${() => {
+          @click=${(ev) => {
+            ev.preventDefault()
             this.addition = undefined;
           }}
           class="addition-icon addition-active"
@@ -49,7 +50,8 @@ export class ll_notes_view extends LitElement {
         </div>`;
       }
       return html`<div
-        @click=${() => {
+        @click=${(ev) => {
+          ev.preventDefault()
           this.addition = i;
         }}
         class="addition-icon"

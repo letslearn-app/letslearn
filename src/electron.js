@@ -27,6 +27,9 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  if (process.env.XDG_DATA_HOME!=undefined){
+    app.setPath("userData", process.env.XDG_DATA_HOME);
+  }
   const mainWindow = createWindow();
 
   app.on("activate", function () {
