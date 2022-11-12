@@ -11,9 +11,12 @@ require('esbuild').build({
   fs.copyFile("src/index.html","build/index.html",()=>{})
   if (process.argv.includes("electron")){
     fs.copyFile("src/electron.js","build/electron.js",()=>{})
+    fs.copyFile("./package.electron.json","build/package.json",()=>{})
   }
   else{
     fs.copyFile("src/sw.js","build/sw.js",()=>{})
+    fs.copyFile("src/menifest.json","build/menifest.json",()=>{})
+    fs.copyFile("src/pwa_icon.png","build/pwa_icon.png",()=>{})
   }
   console.log("Build finished!")
 })}

@@ -5,10 +5,10 @@
   "main": "build/electron.js",
   "scripts": {
     "clean": "rm -rf build/*",
-    "startdev": "rollup -c rollup.config.js  --environment dev -w --sourcemap",
-    "build_web": "rollup -c rollup.config.js --sourcemap",
-    "build_electron": "rollup -c rollup.config.js --sourcemap && cp src/electron.js build/electron.js && cp package.electron.json build/package.json && electron-packager build/ --overwrite --ignore=node_modules --ignore=README.md --ignore=rollup.config.js --ignore=src",
-    "run_electron": "rollup -c rollup.config.js --sourcemap   &&cp src/electron.js build/electron.js&&electron build/electron.js"
+    "startdev": "./build.js serve watch",
+    "build_web": "./build.js",
+    "build_electron": "./build.js electron&& electron-packager build/ --overwrite",
+    "run_electron": "./build.js &&electron build/electron.js"
   },
   "author": "",
   "license": "GPL3",
