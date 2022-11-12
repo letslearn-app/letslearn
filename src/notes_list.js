@@ -3,33 +3,10 @@ import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { marked } from "marked";
 import { ll_button, ll_textinput } from "./widget.js";
 import { mdiNotePlus, mdiDelete, mdiPencil } from "@mdi/js";
+import {default as notes_list_css} from './css/notes_list.js'
 export class ll_notes_list extends LitElement {
   static properties = { searchRes: {} };
-  static styles = css`
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-    h3 {
-      margin-bottom: 1px;
-    }
-    .title-link {
-      text-decoration: underline;
-    }
-    .note-item {
-      margin-top: 4px;
-      margin-left: 4px;
-      margin-right: 4px;
-      margin-bottom: 10px;
-      border-radius: 6px;
-      box-shadow: black 0px 0px 7px 0px;
-      overflow: hidden;
-      padding: 4px;
-    }
-    .button {
-      float: right;
-    }
-  `;
+  static styles = css([notes_list_css])
   constructor() {
     super();
     this.searchContent = localStorage["searchContent"] == "true";

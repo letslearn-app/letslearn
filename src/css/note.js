@@ -1,6 +1,10 @@
 import {default as hljsStyle} from 'highlight.js/styles/dark.css'
+import {select} from './select.js'
 function makeStyle(){
 return `
+*{
+  ${select}
+}
 ${hljsStyle}
 img{
   box-shadow: 0px 0 10px 0px black;

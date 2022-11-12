@@ -12,7 +12,7 @@ import { ll_settings } from "./settings.js";
 import { ll_about } from "./about.js"
 
 import { default as ll_main_css } from "./css/index.css";
-import { default as ll_body_css } from "./css/common.css";  
+import { default as ll_body_css } from "./css/common.js";  
 
 window.letslearn = { flags: {} };
 
@@ -28,7 +28,7 @@ if (navigator.userAgent.indexOf("Electron/") > 1) {
 
 // Require Electron module
 if (window.letslearn.flags.requireElectron) {
-  window.electron = require("electron");
+  window.electron = window.require("electron");
 }
 
 // Handle links by electron
@@ -63,9 +63,7 @@ document.getElementsByTagName("head")[0].appendChild(styleElement)
 
 // Main class
 export class ll_main extends LitElement {
-  static styles = css`
-    ${unsafeCSS(ll_main_css)}
-  `;
+  static styles = css([ll_main_css])
   constructor() {
     super();
     window.store = store;
