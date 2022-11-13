@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 const fs = require("fs");
+const child_process = require('child_process')
 const statik = require("node-static");
 function build() {
   var gitId="undefined"
-  if (fs.existsSync(".git")){
-    var head=fs.readFileSync(".git/HEAD",{encoding:"utf8"}).split(" ")[1].replace("\n","")
-    gitId=fs.readFileSync(".git/"+head,{encoding:"utf8"}).replace("\n","").slice(0,7)
-    gitId="'"+gitId+"'"
+  try{
+    gitId=child_process.execSync('git rev-parse --short HEAD').asciiSlice().catch()
   }
+  catch(e){}
   require("esbuild")
     .build({
       entryPoints: ["src/index.js"],
