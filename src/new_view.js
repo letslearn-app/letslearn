@@ -2,6 +2,7 @@ import { mdiClose, mdiContentSave } from "@mdi/js";
 import { LitElement, html, css, unsafeCSS } from "lit";
 import { ll_button, ll_textinput } from "./widget.js";
 import {default as scrollbar} from './css/scrollbar.js'
+import {defaultNote} from "./store.js"
 
 export class ll_new_note extends LitElement {
   static properties = { addition: {} };
@@ -59,17 +60,25 @@ export class ll_new_note extends LitElement {
     var state = window.store.getState().ui;
     var defaultCurrent = { name: "", content: "", tags: [], addition: {} };
     if (state.mode == "edit") {
-      this.edit = true;
-      this.name = state.name;
-      this.current =
-        JSON.parse(
-          JSON.stringify(window.store.getState().data.notes[state.name])
-        ) || defaultCurrent;
-      if (!this.current.tags) {
-        this.current.tags = [];
-      }
+      this.getNote()
     } else {
-      this.current = defaultCurrent;
+      this.current = defaultNote
+    }
+  }
+  getNote(){
+    var state = window.store.getState();
+    this.edit = true;
+    this.name = state.ui.name;
+    if (state.data.notes[state.ui.name]){
+    this.current =
+    JSON.parse(
+      JSON.stringify(state.data.notes[state.ui.name])
+    );}
+    else{
+      this.current=defaultNote
+    }
+    if (!this.current.tags) {
+      this.current.tags = [];
     }
   }
   add() {
@@ -93,6 +102,13 @@ export class ll_new_note extends LitElement {
       case "title":
         var value = this.shadowRoot.getElementById("title").value;
         if (current.name != value && this.addition != undefined) {
+          if (Object.keys(this.current.addition).includes(value) && this.current.addition[value]!=current){
+            this.shadowRoot.getElementById("title").reject=true
+            return
+          }
+          else{
+            this.shadowRoot.getElementById("title").reject=false
+          }
           delete this.current.addition[this.addition];
           this.current.addition[value] = current;
           this.addition = value;
@@ -117,6 +133,9 @@ export class ll_new_note extends LitElement {
     this.update();
   }
   render() {
+    if (window.store.getState().ui.name!=this.current.name){
+  this.getNote()
+    }
     if (this.addition == undefined) {
       var current = this.current;
     } else {

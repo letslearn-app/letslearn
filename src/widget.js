@@ -29,7 +29,7 @@ export class ll_button extends LitElement {
 }
 
 export class ll_textinput extends LitElement {
-  static properties = { value: {}, placeholder: {} };
+  static properties = { value: {}, placeholder: {},reject:{} };
   static styles = css`
     #input {
       width: 100%;
@@ -38,6 +38,9 @@ export class ll_textinput extends LitElement {
       border-style: solid;
       border-width: 1px;
       outline: none;
+    }
+    .reject{
+      border-color:red
     }
   `;
   constructor() {
@@ -48,10 +51,14 @@ export class ll_textinput extends LitElement {
     this.value = this.shadowRoot.getElementById("input").value;
   }
   render() {
+    var classes=""
+    if (this.reject){
+      classes="reject"
+    }
     this.updateComplete.then(() => {
       this.shadowRoot.getElementById("input").value = this.value;
     });
-    return html`<div style="display:flex;height:100%;"><input id=input placeholder=${this.placeholder} @input=${this.updateValue}></input></div>`;
+    return html`<div style="display:flex;height:100%;"><input id=input  class=${classes} placeholder=${this.placeholder} @input=${this.updateValue}></input></div>`;
   }
 }
 

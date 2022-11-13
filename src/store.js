@@ -1,4 +1,5 @@
 import { createStore, combineReducers } from "redux";
+export const defaultNote= { name: "", content: "", tags: [], addition: {} };
 export const LL_DATA_VERISION = 1; // Increace it only when data model changed
 function llDataReducer(state = { notes: {}, LL_DATA_VERISION }, action) {
   if (action.type.startsWith("notes")) {
