@@ -1,5 +1,5 @@
 #content {
-      --ll-left-size: 20%;
+      --ll-left-size: 20vw;
       --ll-header-height: 10px;
       --ll-footer-height: 20px;
       overflow: hidden;
@@ -21,25 +21,33 @@
       width: 100%;
       height: var(--ll-footer-height);
     }
-    #left {
+    #left-box{
+      flex: none;
       float: left;
       width: var(--ll-left-size);
+      overflow: hidden;	
+    }
+    #left {
       height: 100vh;
+      width: var(--ll-left-size);
       display: flex;
       flex-direction: column
     }
     @media only screen and (max-width: 600px) {
-    #left:hover{
-      width: 100%
+    #content{
+      --ll-left-size: 80vw;
     }
-    #left{
-      overflow:hidden;
+    #left-box:hover{
+      width: var(--ll-left-size);
+    }
+    #left-box{
+      width: 10vw;
     }
     }
     #right {
       height: 100vh;
       margin-left: 1px;
-      width: calc(100% - var(--ll-left-size));
+      flex:1;
     }
     #content-right {
       overflow: auto;

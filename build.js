@@ -18,7 +18,7 @@ function build() {
       loader: { ".css": "text" },
       outfile: "build/index.js",
     })
-    .catch(() => process.exit(1))
+    .catch(() => {})
     .then(() => {
       fs.copyFile("src/index.html", "build/index.html", () => {});
       if (process.argv.includes("electron")) {
@@ -34,7 +34,9 @@ function build() {
 }
 build();
 if (process.argv.includes("watch")) {
-  fs.watch("./src", build);
+  fs.watch("./src", ()=>{
+console.log("File changed rebuilding")
+build()});
 }
 if (process.argv.includes("serve")) {
   const file = new statik.Server("./build");

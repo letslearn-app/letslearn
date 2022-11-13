@@ -134,6 +134,7 @@ export class ll_main extends LitElement {
         break;
     }
     return html` <div id="content" style="display:flex">
+      <div id="left-box">
       <div id="left">
         <div class="header">
           <ll-header
@@ -146,6 +147,7 @@ export class ll_main extends LitElement {
         </div>
         <hr style="margin:0px;" />
         <div class="footer"><ll-header role="footer"></ll-header></div>
+      </div>
       </div>
       <div style="border-left: solid;border-left-width: 1px;"></div>
       <div id="right">
