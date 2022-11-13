@@ -1,4 +1,4 @@
-import {select} from './select.js'
+import { select } from "./select.js";
 export default `
 a {
   ${select}
@@ -27,4 +27,4 @@ h3 {
 .button {
   float: right;
 }
-`
+`;

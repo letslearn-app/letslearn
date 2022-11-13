@@ -3,7 +3,7 @@ import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import DOMPurify from "dompurify";
 import { marked } from "marked";
 import hljs from "highlight.js";
-import { default as noteCotentStyle } from "./css/note.js"
+import { default as noteCotentStyle } from "./css/note.js";
 
 export class ll_notes_view extends LitElement {
   static properties = { name: {}, addition: {} };
@@ -35,13 +35,17 @@ export class ll_notes_view extends LitElement {
     super();
   }
   render() {
-    var note = store.getState().data.notes[this.name];
-    var additionContentIcon = Object.keys(note.addition||{});
+    var state=store.getState()
+    var note = state.data.notes[this.name];
+    if (note==undefined){
+      return
+    }
+    var additionContentIcon = Object.keys(note.addition || {});
     additionContentIcon = additionContentIcon.map((i) => {
       if (i == this.addition) {
         return html`<div
           @click=${(ev) => {
-            ev.preventDefault()
+            ev.preventDefault();
             this.addition = undefined;
           }}
           class="addition-icon addition-active"
@@ -51,7 +55,7 @@ export class ll_notes_view extends LitElement {
       }
       return html`<div
         @click=${(ev) => {
-          ev.preventDefault()
+          ev.preventDefault();
           this.addition = i;
         }}
         class="addition-icon"
@@ -62,6 +66,9 @@ export class ll_notes_view extends LitElement {
     });
     if (this.addition) {
       note = note.addition[this.addition];
+      if (note==undefined){
+        this.addition=undefined
+      }
     }
     var content = DOMPurify.sanitize(marked.parse(note.content)).replace(
       "\n",
@@ -70,8 +77,8 @@ export class ll_notes_view extends LitElement {
     var contentDom = document.createElement("div");
     var contentShadow = contentDom.attachShadow({ mode: "open" });
 
-    contentShadow.innerHTML = `<style>${noteCotentStyle()}</style>${content}`;
-    
+    contentShadow.innerHTML = `<style>${noteCotentStyle(state.ui.darkmode)}</style>${content}`;
+
     contentShadow.querySelectorAll("code").forEach((el) => {
       hljs.highlightElement(el);
     });

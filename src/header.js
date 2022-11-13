@@ -1,6 +1,11 @@
-import { mdiArrowLeft, mdiClose, mdiCogOutline, mdiInformationOutline } from "@mdi/js";
+import {
+  mdiArrowLeft,
+  mdiClose,
+  mdiCogOutline,
+  mdiInformationOutline,
+} from "@mdi/js";
 import { LitElement, html, css } from "lit";
-import {default as appConfig} from './appConfig.js'
+import { default as appConfig } from "./appConfig.js";
 export class ll_header extends LitElement {
   static properties = { role: {}, backbuttom: {} };
   static styles = css`
@@ -58,18 +63,19 @@ export class ll_header extends LitElement {
       </div>`;
     }
     if (this.role == "footer") {
-      return html`<ll-icon path=${mdiCogOutline}
-        @click=${() => {
-          window.store.dispatch({ type: "ui/settings" });
-        }}
-        ></ll-icon>&nbsp
-        <ll-icon 
-        @click=${() => {
-          window.store.dispatch({ type: "ui/about" }); 
-        }}
-        path=${mdiInformationOutline}
-        ></ll-icon>
-      `;
+      return html`<ll-icon
+          path=${mdiCogOutline}
+          @click=${() => {
+            window.store.dispatch({ type: "ui/settings" });
+          }}
+        ></ll-icon
+        >&nbsp
+        <ll-icon
+          @click=${() => {
+            window.store.dispatch({ type: "ui/about" });
+          }}
+          path=${mdiInformationOutline}
+        ></ll-icon> `;
     }
     return html`<div>&nbsp</div>`;
   }

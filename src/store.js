@@ -21,9 +21,6 @@ function llDataReducer(state = { notes: {}, LL_DATA_VERISION }, action) {
   }
 }
 function llUiReducer(state = {}, action) {
-  if (action.type.startsWith("ui")) {
-    state = {};
-  }
   switch (action.type) {
     case "ui/view":
       state.mode = "view";
@@ -38,15 +35,18 @@ function llUiReducer(state = {}, action) {
       return state;
     case "ui/settings":
       state.mode = "settings";
-      state.name="Settings"
+      state.name = "Settings";
       return state;
     case "ui/about":
-      state.mode="about"
-      state.name="About"
-      return state
+      state.mode = "about";
+      state.name = "About";
+      return state;
     case "ui/norm":
       state = {};
       return state;
+    case "ui/darkmode":
+      state.darkmode=action.darkmode
+      return state
     default:
       return state;
   }

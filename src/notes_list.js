@@ -3,10 +3,10 @@ import { unsafeHTML } from "lit/directives/unsafe-html.js";
 import { marked } from "marked";
 import { ll_button, ll_textinput } from "./widget.js";
 import { mdiNotePlus, mdiDelete, mdiPencil } from "@mdi/js";
-import {default as notes_list_css} from './css/notes_list.js'
+import { default as notes_list_css } from "./css/notes_list.js";
 export class ll_notes_list extends LitElement {
   static properties = { searchRes: {} };
-  static styles = css([notes_list_css])
+  static styles = css([notes_list_css]);
   constructor() {
     super();
     this.searchContent = localStorage["searchContent"] == "true";

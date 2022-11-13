@@ -1,5 +1,5 @@
-import {noselect} from './select'
-const css=` 
+import { noselect } from "./select";
+const css = ` 
 body {
   background: #ffffe0;
   color: black;
@@ -10,12 +10,6 @@ body {
   ${noselect}
 }
 
-@media (prefers-color-scheme: dark) {
-  body {
-    background: #2a2a2e;
-    color: #ccc;
-  }
-}
 
 
 .darkmode {
@@ -24,5 +18,5 @@ body {
 }
 html::-webkit-scrollbar{
   display: none;
-}`
-export {css as default}
+}`;
+export { css as default };

@@ -1,6 +1,8 @@
 import { mdiClose, mdiContentSave } from "@mdi/js";
-import { LitElement, html, css } from "lit";
+import { LitElement, html, css, unsafeCSS } from "lit";
 import { ll_button, ll_textinput } from "./widget.js";
+import {default as scrollbar} from './css/scrollbar.js'
+
 export class ll_new_note extends LitElement {
   static properties = { addition: {} };
   static styles = css`
@@ -17,6 +19,7 @@ export class ll_new_note extends LitElement {
       color: inherit;
       background: initial;
     }
+    ${unsafeCSS(scrollbar("#editor"))}
     .addition {
       display: flex;
       white-space: nowrap;
@@ -37,18 +40,19 @@ export class ll_new_note extends LitElement {
       color: #ccc;
       border-top-right-radius: 10px;
       margin-right: 4px;
-    
     }
-    .addition-active{
+    .addition-active {
       background: var(--ll-active-color);
     }
-    .delete-icon{ 
-  display:inline;
-  position: relative;
-   top: 2px;
-       border-radius: 100%;
-}
-    .delete-icon:hover{color:red;}
+    .delete-icon {
+      display: inline;
+      position: relative;
+      top: 2px;
+      border-radius: 100%;
+    }
+    .delete-icon:hover {
+      color: red;
+    }
   `;
   constructor() {
     super();
@@ -58,7 +62,9 @@ export class ll_new_note extends LitElement {
       this.edit = true;
       this.name = state.name;
       this.current =
-        JSON.parse(JSON.stringify(window.store.getState().data.notes[state.name])) || defaultCurrent;
+        JSON.parse(
+          JSON.stringify(window.store.getState().data.notes[state.name])
+        ) || defaultCurrent;
       if (!this.current.tags) {
         this.current.tags = [];
       }
@@ -105,23 +111,23 @@ export class ll_new_note extends LitElement {
     this.current.addition["New subnote"] = { name: "New subnote", content: "" };
     this.update();
   }
-  deleteAddition(name){
-    this.addition=undefined
-    delete this.current.addition[name]
-    this.update()
+  deleteAddition(name) {
+    this.addition = undefined;
+    delete this.current.addition[name];
+    this.update();
   }
   render() {
     if (this.addition == undefined) {
       var current = this.current;
     } else {
-      var current = this.current.addition[this.addition]||this.current;
+      var current = this.current.addition[this.addition] || this.current;
     }
-    var addition = Object.keys(this.current.addition||{});
+    var addition = Object.keys(this.current.addition || {});
     addition.splice(0, 0, undefined);
     addition = addition.map((name) => {
-      var active=""
-      if (name==this.addition){
-      active="addition-active"
+      var active = "";
+      if (name == this.addition) {
+        active = "addition-active";
       }
       return html`<div
         @click=${() => {
@@ -131,13 +137,18 @@ export class ll_new_note extends LitElement {
         class="addition-item ${active}"
       >
         ${name || (name == undefined && "Main note") || name}
-       ${(name!=undefined&&html`
-         <div 
-          @click=${()=>{this.deleteAddition(name);return false}}
-          class=" delete-icon "
-         >
-           <ll-icon path=${mdiClose}></ll-icon>
-         </div>`)||""}`;
+        ${(name != undefined &&
+          html` <div
+            @click=${() => {
+              this.deleteAddition(name);
+              return false;
+            }}
+            class=" delete-icon "
+          >
+            <ll-icon path=${mdiClose}></ll-icon>
+          </div>`) ||
+        ""}
+      </div>`;
     });
 
     this.updateComplete.then(() => {
