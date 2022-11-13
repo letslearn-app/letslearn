@@ -5,7 +5,8 @@ const statik = require("node-static");
 function build() {
   var gitId="undefined"
   try{
-    gitId=child_process.execSync('git rev-parse --short HEAD').asciiSlice()
+    gitId=child_process.execSync('git rev-parse --short HEAD').asciiSlice().replace("\n","")
+    gitId="'"+gitId+"'"
   }
   catch(e){}
   require("esbuild")
