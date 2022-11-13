@@ -25,6 +25,7 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release version="v0.1.02" date="2022-11-12" type="development"/>
     <release version="v0.1.01" date="2022-10-16" type="development">
       <description>
         <p>Tweaked ui</p>

@@ -1,6 +1,6 @@
 import { mdiArrowLeft, mdiClose, mdiCogOutline, mdiInformationOutline } from "@mdi/js";
 import { LitElement, html, css } from "lit";
-
+import {default as appConfig} from './appConfig.js'
 export class ll_header extends LitElement {
   static properties = { role: {}, backbuttom: {} };
   static styles = css`
@@ -53,7 +53,7 @@ export class ll_header extends LitElement {
             ></ll-icon>
           `) ||
         html`<div></div>`}
-        <div style="text-align:center">Letslearn</div>
+        <div style="text-align:center">${appConfig.appName}</div>
         <div></div>
       </div>`;
     }
