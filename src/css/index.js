@@ -1,3 +1,4 @@
+export default `
 #content {
   --ll-left-size: 20vw;
   --ll-header-height: 10px;
@@ -77,3 +78,4 @@
 hr {
   width: 100%;
 }
+`

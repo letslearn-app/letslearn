@@ -11,7 +11,7 @@ import { ll_header } from "./header.js";
 import { ll_settings } from "./settings.js";
 import { ll_about } from "./about.js";
 
-import { default as ll_main_css } from "./css/index.css";
+import { default as ll_main_css } from "./css/index.js";
 import { default as ll_body_css } from "./css/common.js";
 
 window.letslearn = { flags: {} };
