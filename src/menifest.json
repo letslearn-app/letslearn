@@ -8,7 +8,7 @@
   "background_color": "black",
   "icons": [
     {
-      "src": "pwa_icon.png",
+      "src": "icon.png",
       "sizes": "256x256",
       "type": "image/png",
       "purpose": "any"

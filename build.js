@@ -27,7 +27,7 @@ function build() {
       } else {
         fs.copyFile("src/sw.js", "build/sw.js", () => {});
         fs.copyFile("src/menifest.json", "build/menifest.json", () => {});
-        fs.copyFile("src/pwa_icon.png", "build/pwa_icon.png", () => {});
+        fs.copyFile("docs/icon.png", "build/icon.png", () => {});
       }
       console.log("Build finished!");
     });
