@@ -122,7 +122,7 @@ export class ll_main extends LitElement {
     else{
       document.getElementsByTagName("body")[0].className=""
     }
-    if (this.contentName==uiState.mode&&this.content!=undefined){
+    if (this.contentName==uiState.mode&&this.content&&this.content.update!=undefined){
       if (uiState &&uiState.name){
         this.content.name=uiState.name
       }

@@ -1,13 +1,12 @@
 import { default as hljsStyleDark } from "highlight.js/styles/dark.css";
 import { default as hljsStyleLight } from "highlight.js/styles/default.css";
-import {default as scrollbar} from './scrollbar.js'
+import { default as scrollbar } from "./scrollbar.js";
 import { select } from "./select.js";
 function makeStyle(darkmode) {
-  if (darkmode){
-    var hljsStyle=hljsStyleDark
-  }
-  else{
-    var hljsStyle=hljsStyleLight
+  if (darkmode) {
+    var hljsStyle = hljsStyleDark;
+  } else {
+    var hljsStyle = hljsStyleLight;
   }
   return `
 *{

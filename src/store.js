@@ -43,7 +43,8 @@ function llUiReducer(state = {}, action) {
       state.name = "About";
       return state;
     case "ui/norm":
-      state = {};
+      state.name= undefined
+      state.mode= undefined;
       return state;
     case "ui/darkmode":
       state.darkmode=action.darkmode

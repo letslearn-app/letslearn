@@ -38,7 +38,7 @@ export class ll_new_note extends LitElement {
       border-top-left-radius: 10px;
       padding-left: 4px;
       padding-right: 4px;
-      color: #ccc;
+      color: inherit;
       border-top-right-radius: 10px;
       margin-right: 4px;
     }

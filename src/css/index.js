@@ -78,4 +78,4 @@ export default `
 hr {
   width: 100%;
 }
-`
+`;

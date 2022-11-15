@@ -1,23 +1,32 @@
 #!/usr/bin/env node
 const fs = require("fs");
-const child_process = require('child_process')
+const child_process = require("child_process");
 const statik = require("node-static");
+const esbuild = require("esbuild");
+const http = require("http");
+
+const buildConfig = {
+  entryPoints: ["src/index.js"],
+  bundle: true,
+  loader: { ".css": "text" },
+};
+
 function build() {
-  var gitId="undefined"
-  try{
-    gitId=child_process.execSync('git rev-parse --short HEAD').asciiSlice().replace("\n","")
-    gitId="'"+gitId+"'"
-  }
-  catch(e){}
-  require("esbuild")
-    .build({
-      entryPoints: ["src/index.js"],
-      bundle: true,
-      define:{GITID:gitId},
-      sourcemap: true,
-      loader: { ".css": "text" },
-      outfile: "build/index.js",
-    })
+  var gitId = "undefined";
+  try {
+    gitId = child_process
+      .execSync("git rev-parse --short HEAD")
+      .asciiSlice()
+      .replace("\n", "");
+    gitId = "'" + gitId + "'";
+  } catch (e) {}
+  esbuild
+    .build(
+      Object.assign(
+        { define: { GITID: gitId },sourefile:true, outfile: "build/index.js" },
+        buildConfig
+      )
+    )
     .catch(() => {})
     .then(() => {
       fs.copyFile("src/index.html", "build/index.html", () => {});
@@ -32,25 +41,49 @@ function build() {
       console.log("Build finished!");
     });
 }
-build();
-if (process.argv.includes("watch")) {
-  fs.watch("./src", ()=>{
-console.log("File changed rebuilding")
-build()});
-}
-if (process.argv.includes("serve")) {
-  const file = new statik.Server("./build");
-
-  require("http")
+function liveserver() {
+  const file = new statik.Server("./src");
+  http
     .createServer(function (request, response) {
-      request
-        .addListener("end", function () {
-          //
-          // Serve files!
-          //
-          file.serve(request, response);
-        })
-        .resume();
+      if (request.url == "/index.js") {
+        response.writeHead(200, { "Content-Type": "text/javascript" });
+        res = esbuild.buildSync(
+          Object.assign(
+            { write: false, define: { GITID: "'LIVESERVER'" } },
+            buildConfig
+          )
+        );
+        response.write(res.outputFiles[0].text);  
+        response.end();
+      }
+      file.serve(request, response);
     })
     .listen(8080);
+}
+if (!process.argv.includes("liveserver")) {
+  build();
+  if (process.argv.includes("watch")) {
+    fs.watch("./src", () => {
+      console.log("File changed rebuilding");
+      build();
+    });
+  }
+  if (process.argv.includes("serve")) {
+    const file = new statik.Server("./build");
+
+    http
+      .createServer(function (request, response) {
+        request
+          .addListener("end", function () {
+            //
+            // Serve files!
+            //
+            file.serve(request, response);
+          })
+          .resume();
+      })
+      .listen(8080);
+  }
+} else {
+  liveserver();
 }
