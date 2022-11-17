@@ -24,6 +24,17 @@ h3 {
   overflow: hidden;
   padding: 4px;
 }
+@media only screen and (max-width: 600px) {
+.note-item {
+  margin: 0px;
+  border-width:1px;
+  border-bottom-style: solid;
+  border-radius: 0px;
+  box-shadow: none;
+  overflow: hidden;
+  padding: 4px;
+}
+}
 .button {
   float: right;
 }

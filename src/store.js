@@ -33,6 +33,7 @@ function llUiReducer(state = {}, action) {
       return state;
     case "ui/new":
       state.mode = "new";
+      state.name=undefined
       return state;
     case "ui/settings":
       state.mode = "settings";

@@ -23,7 +23,7 @@ function build() {
   esbuild
     .build(
       Object.assign(
-        { define: { GITID: gitId },sourefile:true, outfile: "build/index.js" },
+        { define: { GITID: gitId },sourcemap:true, outfile: "build/index.js" },
         buildConfig
       )
     )
