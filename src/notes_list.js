@@ -70,11 +70,11 @@ export class ll_notes_list extends LitElement {
       }
       var i_safe = i.replaceAll('"', '\\"');
       var viewFunc = Function(`this.viewNote("${i_safe}")`).bind(this); //Very ugly but work
-      var editFunc = Function(`this.editNote("${i_safe}")`).bind(this);
-      var delFunc = Function(`this.delNote("${i_safe}")`).bind(this);
+      var editFunc = Function('e',`this.editNote("${i_safe}");e.stopPropagation()`).bind(this);
+      var delFunc = Function('e',`this.delNote("${i_safe}");e.stopPropagation()`).bind(this);
       notesHtml.push(
-        html`<div class=note-item>
-            <a id=${i} @click=${viewFunc} >
+        html`<div @click=${viewFunc} class=note-item>
+            <a id=${i} >
               <h3 style="display:inline"class=title-link>${i}</h3>
             </a> 
             &nbsp
@@ -83,7 +83,7 @@ export class ll_notes_list extends LitElement {
               <ll-icon path=${mdiPencil}></ll-icon>
             </ll-button>
             <ll-button class=button @click=${delFunc}>
-              <ll-icon path=${mdiDelete} ></ll-icon>
+              <ll-icon path=${mdiDelete} style='color:red' ></ll-icon>
             </ll-button></div>
             </br>
             <div class=content-preview>${unsafeHTML(content)}</div>
