@@ -70,8 +70,14 @@ export class ll_notes_list extends LitElement {
       }
       var i_safe = i.replaceAll('"', '\\"');
       var viewFunc = Function(`this.viewNote("${i_safe}")`).bind(this); //Very ugly but work
-      var editFunc = Function('e',`this.editNote("${i_safe}");e.stopPropagation()`).bind(this);
-      var delFunc = Function('e',`this.delNote("${i_safe}");e.stopPropagation()`).bind(this);
+      var editFunc = Function(
+        "e",
+        `this.editNote("${i_safe}");e.stopPropagation()`
+      ).bind(this);
+      var delFunc = Function(
+        "e",
+        `this.delNote("${i_safe}");e.stopPropagation()`
+      ).bind(this);
       notesHtml.push(
         html`<div @click=${viewFunc} class=note-item>
             <a id=${i} >

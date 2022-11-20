@@ -1,8 +1,8 @@
 import { mdiClose, mdiContentSave } from "@mdi/js";
 import { LitElement, html, css, unsafeCSS } from "lit";
 import { ll_button, ll_textinput } from "./widget.js";
-import {default as scrollbar} from './css/scrollbar.js'
-import {defaultNote} from "./store.js"
+import { default as scrollbar } from "./css/scrollbar.js";
+import { defaultNote } from "./store.js";
 
 export class ll_new_note extends LitElement {
   static properties = { addition: {} };
@@ -60,22 +60,21 @@ export class ll_new_note extends LitElement {
     var state = window.store.getState().ui;
     var defaultCurrent = { name: "", content: "", tags: [], addition: {} };
     if (state.mode == "edit") {
-      this.getNote()
+      this.getNote();
     } else {
-      this.current = defaultNote
+      this.current = defaultNote;
     }
   }
-  getNote(){
+  getNote() {
     var state = window.store.getState();
     this.edit = true;
     this.name = state.ui.name;
-    if (state.data.notes[state.ui.name]){
-    this.current =
-    JSON.parse(
-      JSON.stringify(state.data.notes[state.ui.name])
-    );}
-    else{
-      this.current=defaultNote
+    if (state.data.notes[state.ui.name]) {
+      this.current = JSON.parse(
+        JSON.stringify(state.data.notes[state.ui.name])
+      );
+    } else {
+      this.current = defaultNote;
     }
     if (!this.current.tags) {
       this.current.tags = [];
@@ -101,17 +100,30 @@ export class ll_new_note extends LitElement {
     switch (type) {
       case "title":
         var value = this.shadowRoot.getElementById("title").value;
-        if (current.name != value && this.addition != undefined) {
-          if (Object.keys(this.current.addition).includes(value) && this.current.addition[value]!=current){
-            this.shadowRoot.getElementById("title").reject=true
-            return
+        if (current.name != value) {
+          if (this.addition != undefined) {
+            if (
+              Object.keys(this.current.addition).includes(value) &&
+              this.current.addition[value] != current
+            ) {
+              this.shadowRoot.getElementById("title").reject = true;
+              return;
+            } else {
+              this.shadowRoot.getElementById("title").reject = false;
+            }
+
+            delete this.current.addition[this.addition];
+            this.current.addition[value] = current;
+            this.addition = value;
+          } else {
+            var notes = window.store.getState().data.notes;
+            if (Object.keys(notes).includes(value)) {
+              this.shadowRoot.getElementById("title").reject = true;
+              return;
+            } else {
+              this.shadowRoot.getElementById("title").reject = false;
+            }
           }
-          else{
-            this.shadowRoot.getElementById("title").reject=false
-          }
-          delete this.current.addition[this.addition];
-          this.current.addition[value] = current;
-          this.addition = value;
         }
         current.name = value;
         break;
@@ -133,14 +145,15 @@ export class ll_new_note extends LitElement {
     this.update();
   }
   render() {
-    if (window.store.getState().ui.name!=this.current.name){
-  this.getNote()
+    if (window.store.getState().ui.name != this.current.name) {
+      this.getNote();
     }
     if (this.addition == undefined) {
       var current = this.current;
     } else {
       var current = this.current.addition[this.addition] || this.current;
     }
+
     var addition = Object.keys(this.current.addition || {});
     addition.splice(0, 0, undefined);
     addition = addition.map((name) => {

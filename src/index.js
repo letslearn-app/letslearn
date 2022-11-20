@@ -1,4 +1,4 @@
-import { LitElement, html, css, unsafeCSS } from "lit";
+import { LitElement, html, css } from "lit";
 import localForage from "localforage";
 
 import { store } from "./store.js";
@@ -15,7 +15,7 @@ import { default as ll_main_css } from "./css/index.js";
 import { default as ll_body_css } from "./css/common.js";
 
 window.letslearn = { flags: {} };
-
+window.letslearn;
 // Set the flags
 window.letslearn.flags.serviceWorker = true;
 
@@ -56,12 +56,11 @@ if ("serviceWorker" in navigator && window.letslearn.flags.serviceWorker) {
   });
 }
 
+document;
 // Inject style
 var styleElement = document.createElement("style");
 styleElement.innerHTML = ll_body_css;
 document.getElementsByTagName("head")[0].appendChild(styleElement);
-
-
 
 // Main class
 export class ll_main extends LitElement {
@@ -73,7 +72,7 @@ export class ll_main extends LitElement {
     store.subscribeDataChange(this.syncData.bind(this));
     store.subscribeUiChange(this.update.bind(this));
     this.content = undefined;
-    this.contentName= undefined
+    this.contentName = undefined;
 
     window.onbeforeunload = () => {
       localStorage.setItem("uiStatus", JSON.stringify(store.getState().ui));
@@ -84,15 +83,15 @@ export class ll_main extends LitElement {
       localStorage.removeItem("uiStatus");
     }
     //Init darkmode
-    this.initDarkmode()
-    window.matchMedia('(prefers-color-scheme: dark)').onchange=()=>{
-      var darkmode=window.matchMedia('(prefers-color-scheme: dark)').matches;  
-      window.store.dispatch({type:"ui/darkmode",darkmode})
-    }
+    this.initDarkmode();
+    window.matchMedia("(prefers-color-scheme: dark)").onchange = () => {
+      var darkmode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      window.store.dispatch({ type: "ui/darkmode", darkmode });
+    };
   }
-  initDarkmode(){
-    var darkmode=window.matchMedia('(prefers-color-scheme: dark)').matches;
-    window.store.getState().ui.darkmode=darkmode
+  initDarkmode() {
+    var darkmode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    window.store.getState().ui.darkmode = darkmode;
   }
   loadData() {
     localForage.getItem("data").then((data) => {
@@ -116,49 +115,51 @@ export class ll_main extends LitElement {
     var uiState = store.getState().ui;
     var leftContentOverride = undefined;
 
-    if (uiState.darkmode){
-      document.getElementsByTagName("body")[0].className="darkmode"                
+    if (uiState.darkmode) {
+      document.getElementsByTagName("body")[0].className = "darkmode";
+    } else {
+      document.getElementsByTagName("body")[0].className = "";
     }
-    else{
-      document.getElementsByTagName("body")[0].className=""
-    }
-    if (this.contentName==uiState.mode&&this.content&&this.content.update!=undefined){
-      if (uiState){
-        this.content.name=uiState.name
+    if (
+      this.contentName == uiState.mode &&
+      this.content &&
+      this.content.update != undefined
+    ) {
+      if (uiState) {
+        this.content.name = uiState.name;
       }
-      this.content.update()
-    }
-    else{
-    var content=undefined
-    switch (uiState.mode) {
-      case "view":
-        content = new ll_notes_view();
-        content.name = uiState.name;
-        break;
-      case "new":
-        content = new ll_new_note();
-        break;
-      case "edit":
-        content = new ll_new_note();
-        content.name = uiState.name;
-        content.edit = true;
-        break;
-      case "settings":
-        content = new ll_settings();
-        content.role = "right";
-        leftContentOverride = new ll_settings();
-        content.role = "left";
-        break;
-      case "about":
-        content = new ll_about();
-        leftContentOverride = html``;
-        break;
-      default:
-        content = html``;
-        break;
-    }
-    this.content=content
-    this.contentName=uiState.mode
+      this.content.update();
+    } else {
+      var content = undefined;
+      switch (uiState.mode) {
+        case "view":
+          content = new ll_notes_view();
+          content.name = uiState.name;
+          break;
+        case "new":
+          content = new ll_new_note();
+          break;
+        case "edit":
+          content = new ll_new_note();
+          content.name = uiState.name;
+          content.edit = true;
+          break;
+        case "settings":
+          content = new ll_settings();
+          content.role = "right";
+          leftContentOverride = new ll_settings();
+          content.role = "left";
+          break;
+        case "about":
+          content = new ll_about();
+          leftContentOverride = html``;
+          break;
+        default:
+          content = html``;
+          break;
+      }
+      this.content = content;
+      this.contentName = uiState.mode;
     }
     return html` <div id="content" style="display:flex">
       <div id="left-box">

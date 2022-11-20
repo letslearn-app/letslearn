@@ -35,10 +35,10 @@ export class ll_notes_view extends LitElement {
     super();
   }
   render() {
-    var state=store.getState()
+    var state = store.getState();
     var note = state.data.notes[this.name];
-    if (note==undefined){
-      return
+    if (note == undefined) {
+      return;
     }
     var additionContentIcon = Object.keys(note.addition || {});
     additionContentIcon = additionContentIcon.map((i) => {
@@ -66,8 +66,8 @@ export class ll_notes_view extends LitElement {
     });
     if (this.addition) {
       note = note.addition[this.addition];
-      if (note==undefined){
-        this.addition=undefined
+      if (note == undefined) {
+        this.addition = undefined;
       }
     }
     var content = DOMPurify.sanitize(marked.parse(note.content)).replace(
@@ -77,7 +77,9 @@ export class ll_notes_view extends LitElement {
     var contentDom = document.createElement("div");
     var contentShadow = contentDom.attachShadow({ mode: "open" });
 
-    contentShadow.innerHTML = `<style>${noteCotentStyle(state.ui.darkmode)}</style>${content}`;
+    contentShadow.innerHTML = `<style>${noteCotentStyle(
+      state.ui.darkmode
+    )}</style>${content}`;
 
     contentShadow.querySelectorAll("code").forEach((el) => {
       hljs.highlightElement(el);

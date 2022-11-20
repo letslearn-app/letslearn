@@ -1,5 +1,5 @@
 import { createStore, combineReducers } from "redux";
-export const defaultNote= { name: "", content: "", tags: [], addition: {} };
+export const defaultNote = { name: "", content: "", tags: [], addition: {} };
 export const LL_DATA_VERISION = 1; // Increace it only when data model changed
 function llDataReducer(state = { notes: {}, LL_DATA_VERISION }, action) {
   if (action.type.startsWith("notes")) {
@@ -33,7 +33,7 @@ function llUiReducer(state = {}, action) {
       return state;
     case "ui/new":
       state.mode = "new";
-      state.name=undefined
+      state.name = undefined;
       return state;
     case "ui/settings":
       state.mode = "settings";
@@ -44,12 +44,12 @@ function llUiReducer(state = {}, action) {
       state.name = "About";
       return state;
     case "ui/norm":
-      state.name= undefined
-      state.mode= undefined;
+      state.name = undefined;
+      state.mode = undefined;
       return state;
     case "ui/darkmode":
-      state.darkmode=action.darkmode
-      return state
+      state.darkmode = action.darkmode;
+      return state;
     default:
       return state;
   }
