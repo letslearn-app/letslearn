@@ -78,7 +78,7 @@ export class ll_notes_view extends LitElement {
     var contentShadow = contentDom.attachShadow({ mode: "open" });
 
     contentShadow.innerHTML = `<style>${noteCotentStyle(
-      state.ui.darkmode
+      state.pref.darkmode
     )}</style>${content}`;
 
     contentShadow.querySelectorAll("code").forEach((el) => {

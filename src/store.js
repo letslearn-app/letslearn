@@ -4,6 +4,7 @@ export const LL_DATA_VERISION = 1; // Increace it only when data model changed
 function llDataReducer(state = { notes: {}, LL_DATA_VERISION }, action) {
   if (action.type.startsWith("notes")) {
     state["__JUST_LOADED"] = false;
+    state["__DELTA"]=action
   }
   switch (action.type) {
     case "notes/add":
@@ -19,7 +20,7 @@ function llDataReducer(state = { notes: {}, LL_DATA_VERISION }, action) {
       return state;
     default:
       return state;
-  }
+    }
 }
 function llUiReducer(state = {}, action) {
   switch (action.type) {
@@ -47,12 +48,23 @@ function llUiReducer(state = {}, action) {
       state.name = undefined;
       state.mode = undefined;
       return state;
-    case "ui/darkmode":
-      state.darkmode = action.darkmode;
-      return state;
     default:
       return state;
   }
+}
+function llPreferenceReducer(state={},action){
+  if(action.type.startsWith("pref/")){
+    state.__DELTA=action.type
+  }
+  switch (action.type){
+    case "pref/set":
+      Object.assign(state,action.data)
+      break;
+    case "pref/load":
+      state=action.data
+      break;
+  }
+  return state
 }
 function subscribeDataChange(func) {
   this.subscribe(() => {
@@ -69,7 +81,7 @@ function subscribeUiChange(func) {
   });
 }
 var store = createStore(
-  combineReducers({ data: llDataReducer, ui: llUiReducer })
+  combineReducers({ data: llDataReducer, ui: llUiReducer,pref:llPreferenceReducer })
 );
 
 store.subscribeDataChange = subscribeDataChange.bind(store);

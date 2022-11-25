@@ -27,9 +27,9 @@ export class ll_button extends LitElement {
   }
 }
 export class ll_selectbutton extends LitElement {
-  static properties = { select: {}, click: {}, button: {}, options: {} };
+  static properties = { select: {}, click: {}, button: {}, options: {},value:{} };
   static styles = css`
-    div {
+    #cont {
       width: fit-content;
       border-color: #7a7a7a;
       background: initial;
@@ -43,10 +43,19 @@ export class ll_selectbutton extends LitElement {
       border-width: 1px;
       outline: none;
     }
+    #cont:active{
+      filter: invert(0.5);
+    }
     button {
       color: inherit;
       background: none;
       border: none;
+    }
+    button:active {
+
+    }
+    select:active{
+
     }
     select {
       color: inherit;
@@ -60,16 +69,26 @@ export class ll_selectbutton extends LitElement {
     this.click = args.click;
     this.button = args.button;
     this.options = args.options;
+    this.value=undefined
   }
+  onchange(){
+    if (this.select instanceof Function){
+      var value=this.shadowRoot.getElementById("select").value
+      this.select(value)
+    }
+  }  
   render() {
+    this.updateComplete.then(()=>{
+      this.shadowRoot.getElementById("select").value=this.value
+    })
     var options = [];
     for (var i in this.options) {
       options.push(html`<option value=${i}>${this.options[i]}</option>`);
     }
     return html`
-      <div>
+      <div id=cont>
         <button @click=${this.click}>${this.button}</button
-        ><select>
+        ><select @change=${this.onchange} id=select>
           ${options}
         </select>
       </div>

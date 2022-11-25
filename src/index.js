@@ -69,8 +69,7 @@ export class ll_main extends LitElement {
     super();
     window.store = store;
     this.loadData();
-    store.subscribeDataChange(this.syncData.bind(this));
-    store.subscribeUiChange(this.update.bind(this));
+    
     this.content = undefined;
     this.contentName = undefined;
 
@@ -86,12 +85,15 @@ export class ll_main extends LitElement {
     this.initDarkmode();
     window.matchMedia("(prefers-color-scheme: dark)").onchange = () => {
       var darkmode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      window.store.dispatch({ type: "ui/darkmode", darkmode });
+      window.store.dispatch({ type: "pref/set", data:{darkmode}});
     };
+    // Listen to the change
+    store.subscribeDataChange(this.syncData.bind(this));
+    store.subscribeUiChange(this.update.bind(this));
   }
   initDarkmode() {
     var darkmode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    window.store.getState().ui.darkmode = darkmode;
+    window.store.dispatch({type:"pref/set",data:{darkmode}})
   }
   loadData() {
     localForage.getItem("data").then((data) => {
@@ -112,36 +114,36 @@ export class ll_main extends LitElement {
     localForage.setItem("data", JSON.stringify(state));
   }
   render() {
-    var uiState = store.getState().ui;
+    var State = store.getState();
     var leftContentOverride = undefined;
 
-    if (uiState.darkmode) {
+    if (State.pref.darkmode) {
       document.getElementsByTagName("body")[0].className = "darkmode";
     } else {
       document.getElementsByTagName("body")[0].className = "";
     }
     if (
-      this.contentName == uiState.mode &&
+      this.contentName == State.ui.mode &&
       this.content &&
       this.content.update != undefined
     ) {
-      if (uiState) {
-        this.content.name = uiState.name;
+      if (State.ui) {
+        this.content.name = State.ui.name;
       }
       this.content.update();
     } else {
       var content = undefined;
-      switch (uiState.mode) {
+      switch (State.ui.mode) {
         case "view":
           content = new ll_notes_view();
-          content.name = uiState.name;
+          content.name = State.ui.name;
           break;
         case "new":
           content = new ll_new_note();
           break;
         case "edit":
           content = new ll_new_note();
-          content.name = uiState.name;
+          content.name = State.ui.name;
           content.edit = true;
           break;
         case "settings":
@@ -159,7 +161,7 @@ export class ll_main extends LitElement {
           break;
       }
       this.content = content;
-      this.contentName = uiState.mode;
+      this.contentName = State.ui.mode;
     }
     return html` <div id="content" style="display:flex">
       <div id="left-box">
@@ -167,7 +169,7 @@ export class ll_main extends LitElement {
           <div class="header">
             <ll-header
               role="left"
-              backbuttom=${uiState.mode != undefined}
+              backbuttom=${State.ui.mode != undefined}
             ></ll-header>
           </div>
           <div id="content-left" class="content">
