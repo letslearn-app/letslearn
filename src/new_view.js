@@ -58,7 +58,7 @@ export class ll_new_note extends LitElement {
   constructor() {
     super();
     var state = window.store.getState().ui;
-    var defaultCurrent = { name: "", content: "", tags: [], addition: {} };
+    var defaultCurrent = { name: "", content: "", type:"markdown", tags: [], addition: {} };
     if (state.mode == "edit") {
       this.getNote();
     } else {

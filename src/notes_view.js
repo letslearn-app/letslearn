@@ -4,7 +4,6 @@ import DOMPurify from "dompurify";
 import { marked } from "marked";
 import hljs from "highlight.js";
 import { default as noteCotentStyle } from "./css/note.js";
-
 export class ll_notes_view extends LitElement {
   static properties = { name: {}, addition: {} };
   static styles = css`
@@ -70,10 +69,15 @@ export class ll_notes_view extends LitElement {
         this.addition = undefined;
       }
     }
+    if (note.type==undefined || !note.type.includes('-js')){
     var content = DOMPurify.sanitize(marked.parse(note.content)).replace(
       "\n",
       "<br>"
     );
+    }
+    else{
+    var content=note.content
+    }
     var contentDom = document.createElement("div");
     var contentShadow = contentDom.attachShadow({ mode: "open" });
 
