@@ -11,9 +11,10 @@ export class ll_about extends LitElement {
       <h1 align="center">${appConfig.appName}</h1>
       <p align="center">${appConfig.appVerision}-${gitId}</p>
     </div>
-    </hr>
+    <hr>
      <h3>Developer options</h3>
      <a href=${eruda}>Enable Eruda</a>
+     
     `;
   }
 }

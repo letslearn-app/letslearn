@@ -69,15 +69,13 @@ export class ll_notes_view extends LitElement {
         this.addition = undefined;
       }
     }
-    if (note.type==undefined || !note.type.includes('-js')){
-    var content = DOMPurify.sanitize(marked.parse(note.content)).replace(
+   var content=note.content
+   if (toString(note.type).includes('-js')){
+    content = DOMPurify.sanitize(marked.parse(content)).replace(
       "\n",
       "<br>"
     );
-    }
-    else{
-    var content=note.content
-    }
+   }
     var contentDom = document.createElement("div");
     var contentShadow = contentDom.attachShadow({ mode: "open" });
 
