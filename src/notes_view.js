@@ -69,13 +69,11 @@ export class ll_notes_view extends LitElement {
         this.addition = undefined;
       }
     }
-   var content=note.content
-   if (toString(note.type).includes('-js')){
-    content = DOMPurify.sanitize(marked.parse(content)).replace(
-      "\n",
-      "<br>"
-    );
-   }
+    var content = marked.parse(note.content);
+    var allowjs =note.type!=undefined && note.type.includes("-js");
+    if (!allowjs) {
+      content = DOMPurify.sanitize(content).replace("\n", "<br>");
+    }
     var contentDom = document.createElement("div");
     var contentShadow = contentDom.attachShadow({ mode: "open" });
 
@@ -86,6 +84,25 @@ export class ll_notes_view extends LitElement {
     contentShadow.querySelectorAll("code").forEach((el) => {
       hljs.highlightElement(el);
     });
+    if (allowjs) {
+      var scripts = [];
+      contentShadow.querySelectorAll("script").forEach((el) => {
+        var script = document.createElement("script");
+        script.text = el.innerHTML;
+
+        var i = -1,
+          attrs = el.attributes,
+          attr;
+        while (++i < attrs.length) {
+          script.setAttribute((attr = attrs[i]).name, attr.value);
+        }
+        el.remove();
+        scripts.push(script);
+      });
+      scripts.forEach((e) => {
+        contentShadow.appendChild(e);
+      });
+    }
     return html` <div style="margin: 0.5rem;">
       ${(additionContentIcon.length != 0 &&
         html`

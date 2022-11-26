@@ -69,7 +69,7 @@ export class ll_main extends LitElement {
     super();
     window.store = store;
     this.loadData();
-    
+
     this.content = undefined;
     this.contentName = undefined;
 
@@ -85,7 +85,7 @@ export class ll_main extends LitElement {
     this.initDarkmode();
     window.matchMedia("(prefers-color-scheme: dark)").onchange = () => {
       var darkmode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      window.store.dispatch({ type: "pref/set", data:{darkmode}});
+      window.store.dispatch({ type: "pref/set", data: { darkmode } });
     };
     // Listen to the change
     store.subscribeDataChange(this.syncData.bind(this));
@@ -93,7 +93,7 @@ export class ll_main extends LitElement {
   }
   initDarkmode() {
     var darkmode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    window.store.dispatch({type:"pref/set",data:{darkmode}})
+    window.store.dispatch({ type: "pref/set", data: { darkmode } });
   }
   loadData() {
     localForage.getItem("data").then((data) => {
