@@ -10,12 +10,12 @@ import { ll_icon } from "./icon.js";
 import { ll_header } from "./header.js";
 import { ll_settings } from "./settings.js";
 import { ll_about } from "./about.js";
-
+import {cloudSync} from './cloud_sync.js'
 import { default as ll_main_css } from "./css/index.js";
 import { default as ll_body_css } from "./css/common.js";
 
-window.letslearn = { flags: {} };
-window.letslearn;
+window.letslearn = { flags: {},debugFlags:{} };
+window.letslearn.debugFlags.cloudSyncUrl="";
 // Set the flags
 window.letslearn.flags.serviceWorker = true;
 
@@ -87,6 +87,7 @@ export class ll_main extends LitElement {
       var darkmode = window.matchMedia("(prefers-color-scheme: dark)").matches;
       window.store.dispatch({ type: "pref/set", data: { darkmode } });
     };
+    this.cloudSync=new cloudSync()
     // Listen to the change
     store.subscribeDataChange(this.syncData.bind(this));
     store.subscribeUiChange(this.update.bind(this));

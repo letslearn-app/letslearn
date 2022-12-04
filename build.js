@@ -8,6 +8,7 @@ const http = require("http");
 const buildConfig = {
   entryPoints: ["src/index.js"],
   bundle: true,
+  minify:true,
   loader: { ".css": "text" },
 };
 

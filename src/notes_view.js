@@ -70,7 +70,7 @@ export class ll_notes_view extends LitElement {
       }
     }
     var content = marked.parse(note.content);
-    var allowjs =note.type!=undefined && note.type.includes("-js");
+    var allowjs = note.type != undefined && note.type.includes("-js");
     if (!allowjs) {
       content = DOMPurify.sanitize(content).replace("\n", "<br>");
     }
