@@ -20,7 +20,8 @@ export class cloudSync {
           reject()
         }
       }).catch(reject);
-    });
+  });
+}
   pull(){
       return new Promise((solved,reject)=>{
         fetch(this.syncUrl).then((res)=>{
@@ -33,5 +34,7 @@ export class cloudSync {
         }).catch(reject)
       })
   }
-  }
+  
+
 }
+
