@@ -10,7 +10,7 @@ import { ll_icon } from "./icon.js";
 import { ll_header } from "./header.js";
 import { ll_settings } from "./settings.js";
 import { ll_about } from "./about.js";
-import {cloudSync} from './cloud_sync.js'
+import { llStorage, storageBackends } from "./storage.js";
 import { default as ll_main_css } from "./css/index.js";
 import { default as ll_body_css } from "./css/common.js";
 
@@ -68,7 +68,11 @@ export class ll_main extends LitElement {
   constructor() {
     super();
     window.store = store;
-    this.loadData();
+    this.dataStorage=new llStorage("data",storageBackends.localForageBackend)
+    this.dataStorage.load().then((state)=>{
+      console.log(state)
+      store.dispatch({type:"state/set",state})
+    });
 
     this.content = undefined;
     this.contentName = undefined;
@@ -81,13 +85,14 @@ export class ll_main extends LitElement {
       store.getState().ui = JSON.parse(uiStatus);
       localStorage.removeItem("uiStatus");
     }
-    //Init darkmode
+
+    //});                                                                                                                                                                                                                                 //Init darkmode
     this.initDarkmode();
     window.matchMedia("(prefers-color-scheme: dark)").onchange = () => {
       var darkmode = window.matchMedia("(prefers-color-scheme: dark)").matches;
       window.store.dispatch({ type: "pref/set", data: { darkmode } });
     };
-    this.cloudSync=new cloudSync()
+
     // Listen to the change
     store.subscribeDataChange(this.syncData.bind(this));
     store.subscribeUiChange(this.update.bind(this));

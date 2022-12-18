@@ -25,7 +25,7 @@ function build() {
     .build(
       Object.assign(
         {
-          define: { GITID: gitId },
+          define: { GITID: gitId},
           sourcemap: true,
           outfile: "build/index.js",
         },

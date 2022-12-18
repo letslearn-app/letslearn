@@ -1,9 +1,22 @@
 import { createStore, combineReducers } from "redux";
+
 export const defaultNote = { name: "", content: "", tags: [], addition: {} };
 export const LL_DATA_VERISION = 1; // Increace it only when data model changed
+
+function praseParam(params) {
+  if (params==undefined){
+    return {}
+
+  }
+  var param = params.split("&");
+  param.map((item) =>{return item.split("=")});
+  return param;
+}
 function llDataReducer(state = { notes: {}, LL_DATA_VERISION }, action) {
-  if (action.type.startsWith("notes")) {
-    state["__JUST_LOADED"] = false;
+  state["__DELTA"] = undefined;
+  var params = praseParam(action.type.split("?")[1]);
+  action.type = action.type.split("?")[0];
+  if (action.type.startsWith("notes") && params.slience) {
     state["__DELTA"] = action;
   }
   switch (action.type) {
@@ -53,8 +66,11 @@ function llUiReducer(state = {}, action) {
   }
 }
 function llPreferenceReducer(state = {}, action) {
-  if (action.type.startsWith("pref/")) {
-    state.__DELTA = action.type;
+  state["__DELTA"] = undefined;
+  var params = praseParam(action.type.split("?")[1]);
+  action.type = action.type.split("?")[0];
+  if (action.type.startsWith("pref") && params.slience) {
+    state["__DELTA"] = action;
   }
   switch (action.type) {
     case "pref/set":
@@ -69,7 +85,7 @@ function llPreferenceReducer(state = {}, action) {
 function subscribeDataChange(func) {
   this.subscribe(() => {
     var state = this.getState().data;
-    if (!state.__JUST_LOADED) {
+    if (state.__DELTA) {
       func(state);
     }
   });
@@ -80,6 +96,15 @@ function subscribeUiChange(func) {
     func(state);
   });
 }
+function subscribeDataChange(func) {
+  this.subscribe(() => {
+    var state = this.getState().pref;
+    if (state.__DELTA) {
+      func(state);
+    }
+  });
+}
+
 var store = createStore(
   combineReducers({
     data: llDataReducer,
