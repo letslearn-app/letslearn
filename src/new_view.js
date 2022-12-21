@@ -27,6 +27,7 @@ export class ll_new_note extends LitElement {
       width: 100%;
       overflow: auto;
       overflow-y: hidden;
+      color: #ccc;
     }
     .addition::-webkit-scrollbar {
       width: 4px;

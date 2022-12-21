@@ -1,15 +1,14 @@
 import { noselect } from "./select";
 const css = ` 
 body {
-  background: #ffffea;
+  background: #fafafa;
   color: black;
   font-family: sans-serif;
   margin: 0px;
-  --ll-active-color: #626262;
-  --ll-normal-color: #ccc;
+  --ll-active-color: #373737;
+  --ll-normal-color: #5f5f5f;
   ${noselect}
 }
-
 
 
 .darkmode {

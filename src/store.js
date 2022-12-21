@@ -4,19 +4,20 @@ export const defaultNote = { name: "", content: "", tags: [], addition: {} };
 export const LL_DATA_VERISION = 1; // Increace it only when data model changed
 
 function praseParam(params) {
-  if (params==undefined){
-    return {}
-
+  if (params == undefined) {
+    return {};
   }
   var param = params.split("&");
-  param.map((item) =>{return item.split("=")});
+  param.map((item) => {
+    return item.split("=");
+  });
   return param;
 }
 function llDataReducer(state = { notes: {}, LL_DATA_VERISION }, action) {
   state["__DELTA"] = undefined;
   var params = praseParam(action.type.split("?")[1]);
   action.type = action.type.split("?")[0];
-  if (action.type.startsWith("notes") && params.slience) {
+  if (action.type.startsWith("notes") && !params.slience) {
     state["__DELTA"] = action;
   }
   switch (action.type) {
@@ -65,7 +66,7 @@ function llUiReducer(state = {}, action) {
       return state;
   }
 }
-function llPreferenceReducer(state = {}, action) {
+function llPreferenceReducer(state = { runtime: {} }, action) {
   state["__DELTA"] = undefined;
   var params = praseParam(action.type.split("?")[1]);
   action.type = action.type.split("?")[0];
@@ -76,8 +77,13 @@ function llPreferenceReducer(state = {}, action) {
     case "pref/set":
       Object.assign(state, action.data);
       break;
+    case "pref/set_runtime":
+      Object.assign(state.runtime, action.data);
+      break;
     case "pref/load":
+      var runtime = state.runtime;
       state = action.data;
+      state.runtime = runtime;
       break;
   }
   return state;
@@ -90,13 +96,14 @@ function subscribeDataChange(func) {
     }
   });
 }
+
 function subscribeUiChange(func) {
   this.subscribe(() => {
     var state = this.getState().ui;
     func(state);
   });
 }
-function subscribeDataChange(func) {
+function subscribePrefChange(func) {
   this.subscribe(() => {
     var state = this.getState().pref;
     if (state.__DELTA) {

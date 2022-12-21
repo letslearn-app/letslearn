@@ -1,21 +1,21 @@
 import { LitElement, html, css } from "lit";
-import localForage from "localforage";
 
 import { store } from "./store.js";
+import { llStorage, storageBackends } from "./storage.js";
 
 import { ll_new_note } from "./new_view.js";
 import { ll_notes_list } from "./notes_list.js";
 import { ll_notes_view } from "./notes_view.js";
-import { ll_icon } from "./icon.js";
-import { ll_header } from "./header.js";
+import "./icon.js";
+import "./header.js";
 import { ll_settings } from "./settings.js";
 import { ll_about } from "./about.js";
-import { llStorage, storageBackends } from "./storage.js";
+
 import { default as ll_main_css } from "./css/index.js";
 import { default as ll_body_css } from "./css/common.js";
 
-window.letslearn = { flags: {},debugFlags:{} };
-window.letslearn.debugFlags.cloudSyncUrl="";
+window.letslearn = { flags: {}, debugFlags: {} };
+window.letslearn.debugFlags.cloudSyncUrl = "";
 // Set the flags
 window.letslearn.flags.serviceWorker = true;
 
@@ -68,12 +68,7 @@ export class ll_main extends LitElement {
   constructor() {
     super();
     window.store = store;
-    this.dataStorage=new llStorage("data",storageBackends.localForageBackend)
-    this.dataStorage.load().then((state)=>{
-      console.log(state)
-      store.dispatch({type:"state/set",state})
-    });
-
+    this.initDataStorage();
     this.content = undefined;
     this.contentName = undefined;
 
@@ -90,40 +85,34 @@ export class ll_main extends LitElement {
     this.initDarkmode();
     window.matchMedia("(prefers-color-scheme: dark)").onchange = () => {
       var darkmode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      window.store.dispatch({ type: "pref/set", data: { darkmode } });
+      window.store.dispatch({ type: "pref/set_runtime", data: { darkmode } });
     };
 
     // Listen to the change
-    store.subscribeDataChange(this.syncData.bind(this));
     store.subscribeUiChange(this.update.bind(this));
+  }
+
+  initDataStorage() {
+    this.dataStorage = new llStorage(
+      "data",
+      storageBackends.localForageBackend
+    );
+    this.dataStorage.load().then((state) => {
+      console.log(state);
+      store.dispatch({ type: "state/set", state });
+    });
+    store.subscribeDataChange(this.dataStorage.sync);
   }
   initDarkmode() {
     var darkmode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    window.store.dispatch({ type: "pref/set", data: { darkmode } });
+    window.store.dispatch({ type: "pref/set_runtime", data: { darkmode } });
   }
-  loadData() {
-    localForage.getItem("data").then((data) => {
-      if (data == undefined) {
-        return;
-      }
-      try {
-        data = JSON.parse(data);
-      } catch (err) {
-        console.log("Data error");
-        return;
-      }
-      store.dispatch({ type: "state/set", state: data });
-    });
-  }
-  syncData(state) {
-    delete state.__JUST_LOADED;
-    localForage.setItem("data", JSON.stringify(state));
-  }
+
   render() {
     var State = store.getState();
     var leftContentOverride = undefined;
 
-    if (State.pref.darkmode) {
+    if (State.pref.runtime.darkmode) {
       document.getElementsByTagName("body")[0].className = "darkmode";
     } else {
       document.getElementsByTagName("body")[0].className = "";
