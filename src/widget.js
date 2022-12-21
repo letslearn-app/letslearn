@@ -14,6 +14,8 @@ export class ll_button extends LitElement {
       border-style: solid;
       border-width: 1px;
       outline: none;
+      width:100%;
+      height:100%;
     }
     button:active {
       filter: invert(0.5);

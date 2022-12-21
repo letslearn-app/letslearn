@@ -55,6 +55,12 @@ export class ll_new_note extends LitElement {
     .delete-icon:hover {
       color: red;
     }
+    @media only screen and (max-width: 600px) {
+      #save{
+        width:2rem;
+        height:2rem;
+      }
+    }
   `;
   constructor() {
     super();
@@ -238,7 +244,7 @@ ${current.content}</textarea
             placeholder="Tags"
             value=${this.current.tags}
           ></ll-textinput
-          ><ll-button stype="width:2rem" @click=${this.add}
+          ><ll-button id="save" @click=${this.add}
             ><ll-icon path=${mdiContentSave}></ll-icon
           ></ll-button>
         </div>

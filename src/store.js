@@ -117,8 +117,8 @@ var store = createStore(
     data: llDataReducer,
     ui: llUiReducer,
     pref: llPreferenceReducer,
-  })
-);
+  }),
+window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 store.subscribeDataChange = subscribeDataChange.bind(store);
 store.subscribeUiChange = subscribeUiChange.bind(store);

@@ -85,19 +85,21 @@ export class ll_notes_list extends LitElement {
             </a> 
             &nbsp
             <div  class=button>
-            <ll-button @click=${editFunc}>
-              <ll-icon path=${mdiPencil}></ll-icon>
-            </ll-button>
-            <ll-button class=button @click=${delFunc}>
-              <ll-icon path=${mdiDelete} style='color:red' ></ll-icon>
-            </ll-button></div>
+              <ll-button @click=${editFunc}>
+                <ll-icon path=${mdiPencil}></ll-icon>
+              </ll-button>
+              <ll-button @click=${delFunc}>
+                <ll-icon path=${mdiDelete} style='color:red' ></ll-icon>
+              </ll-button>
+            </div>
             </br>
             <div class=content-preview>${unsafeHTML(content)}</div>
             </div>`
       );
     }
-    return html`<div>
+    return html`<div style="display:flex">
         <ll-textinput
+          style="width:100%"
           id="search"
           placeholder="Search"
           @input=${this.search}
