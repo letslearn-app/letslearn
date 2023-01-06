@@ -38,3 +38,30 @@ export class cloudSync {
     });
   }
 }
+
+export class noteSync extends cloudSync {
+  constructor(store) {
+    super();
+    this.store = store;
+  }
+
+  init() {
+    this.store.subscribeDataChange((state) => {
+      this.data.push(state.__DELTA);
+    });
+    setInterval(this.pushChanges.bind(this), 2 * 1000);
+  }
+  pushChanges() {
+    if (this.data.length) {
+      this.push().then(() => {
+        this.data = [];
+      });
+    }
+  }
+  pullNotes() {
+    this.pull().then((data) => {
+      Object.assign(data, this.store.getState().data);
+      this.store.dispath({ type: "state/set", state: data });
+    });
+  }
+}
